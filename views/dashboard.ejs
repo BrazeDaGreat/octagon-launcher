@@ -205,7 +205,7 @@
           <!-- Theme Toggle -->
           <button 
             id="theme-toggle"
-            class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1"
+            class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
             title="Toggle theme (T)"
           >
             <span class="material-icons text-secondary-10 dark:text-secondary-90 text-xl" id="theme-icon">dark_mode</span>
@@ -214,7 +214,7 @@
           <!-- Refresh Button -->
           <button 
             id="refresh-btn"
-            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1"
+            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
             title="Refresh data (R)"
           >
             <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">refresh</span>
@@ -223,7 +223,7 @@
           <!-- Logout -->
           <button 
             onclick="window.location.href='/logout'"
-            class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1"
+            class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
             title="Logout (L)"
           >
             <span class="material-icons text-error-10 dark:text-error-90 text-xl">logout</span>
@@ -238,21 +238,26 @@
     <!-- System Information Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6 mb-8">
       <!-- CPU Usage Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-primary-10 dark:text-primary-80 text-xl">memory</span>
-            </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">CPU</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.cpu?.cores || 0 %> cores</p>
-            </div>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center space-x-3 mb-3">
+          <div class="w-10 h-10 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-primary-10 dark:text-primary-80 text-lg">memory</span>
           </div>
+          <div class="flex flex-col">
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">CPU</h3>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.cpu?.cores || 0 %> cores</p>
+          </div>
+        </div>
+        
+        <!-- Info row: Description + Value -->
+        <div class="text-right __value">
           <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-usage">
             <%= systemData.cpu?.usage || 0 %>%
           </span>
         </div>
+        
+        <!-- Progress Bar -->
         <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
           <div 
             class="bg-primary-40 h-2 rounded-full transition-all duration-500" 
@@ -263,23 +268,28 @@
       </div>
 
       <!-- Memory Usage Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-success-90 dark:bg-success-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-success-10 dark:text-success-80 text-xl">storage</span>
-            </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Memory</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="memory-info">
-                <%= systemData.memory?.used || 0 %>GB / <%= systemData.memory?.total || 0 %>GB
-              </p>
-            </div>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center space-x-3 mb-3">
+          <div class="w-10 h-10 bg-success-90 dark:bg-success-20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-success-10 dark:text-success-80 text-lg">storage</span>
           </div>
+          <div class="flex flex-col">
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Memory</h3>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="memory-info">
+              <%= systemData.memory?.used || 0 %>GB / <%= systemData.memory?.total || 0 %>GB
+            </p>
+          </div>
+        </div>
+        
+        <!-- Info row: Description + Value -->
+        <div class="text-right __value">
           <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="memory-usage">
             <%= systemData.memory?.percentage || 0 %>%
           </span>
         </div>
+        
+        <!-- Progress Bar -->
         <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
           <div 
             class="bg-success-40 h-2 rounded-full transition-all duration-500" 
@@ -291,21 +301,26 @@
 
       <!-- Temperature Card -->
       <% if (systemData.temperature?.available) { %>
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-warning-10 dark:text-warning-80 text-xl">thermostat</span>
-            </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Temperature</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60">CPU core</p>
-            </div>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center space-x-3 mb-3">
+          <div class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-warning-10 dark:text-warning-80 text-lg">thermostat</span>
           </div>
+          <div class="flex flex-col">
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Temperature</h3>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60">CPU core</p>
+          </div>
+        </div>
+        
+        <!-- Info row: Description + Value -->
+        <div class="text-right __value">
           <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-temp">
             <%= systemData.temperature.cpu %>°C
           </span>
         </div>
+        
+        <!-- Progress Bar -->
         <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
           <div 
             class="h-2 rounded-full transition-all duration-500 <%= systemData.temperature.cpu > 80 ? 'bg-error-40' : systemData.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40' %>" 
@@ -316,57 +331,32 @@
       </div>
       <% } %>
 
-      <!-- Power Consumption Card -->
-      <% if (systemData.power?.available) { %>
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-tertiary-90 dark:bg-tertiary-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-tertiary-10 dark:text-tertiary-80 text-xl">bolt</span>
-            </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Power</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.power.note %></p>
-            </div>
-          </div>
-          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="power-usage">
-            <%= systemData.power.estimatedWatts %>W
-          </span>
-        </div>
-        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-          <div 
-            class="bg-tertiary-40 h-2 rounded-full transition-all duration-500" 
-            style="width: <%= Math.min(systemData.power.estimatedWatts, 100) %>%"
-            id="power-bar"
-          ></div>
-        </div>
-      </div>
-      <% } %>
-
       <!-- Battery Card (if available) -->
       <% if (systemData.battery?.available) { %>
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-warning-10 dark:text-warning-80 text-xl" id="battery-icon">
-                <%= systemData.battery.isCharging ? 'battery_charging_full' : 'battery_std' %>
-              </span>
-            </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Battery</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="battery-status">
-                <%= systemData.battery.status %>
-                <% if (systemData.battery.timeRemaining) { %>
-                  - <%= systemData.battery.timeRemaining %>
-                <% } %>
-              </p>
-            </div>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center space-x-3 mb-3">
+          <div class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-warning-10 dark:text-warning-80 text-lg" id="battery-icon">
+              <%= systemData.battery.isCharging ? 'battery_charging_full' : 'battery_std' %>
+            </span>
           </div>
+          <div class="flex flex-col">
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Battery</h3>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="battery-status">
+              <%= systemData.battery.status %>
+            </p>
+          </div>
+        </div>
+        
+        <!-- Info row: Description + Value -->
+        <div class="text-right __value">
           <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="battery-level">
             <%= systemData.battery.percentage %>%
           </span>
         </div>
+        
+        <!-- Progress Bar -->
         <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
           <div 
             class="h-2 rounded-full transition-all duration-500 <%= systemData.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40' %>" 
@@ -378,26 +368,32 @@
       <% } %>
 
       <!-- Uptime Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-secondary-90 dark:bg-secondary-20 rounded-2xl flex items-center justify-center">
-              <span class="material-icons text-secondary-10 dark:text-secondary-80 text-xl">schedule</span>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
+        <!-- Header: Icon + Title -->
+        <div class="flex items-center space-x-3 mb-3">
+          <div class="w-10 h-10 bg-secondary-90 dark:bg-secondary-20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-secondary-10 dark:text-secondary-80 text-lg">schedule</span>
+          </div>
+          <div class="flex flex-col">
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Uptime</h3>
+            <p class="text-xs text-green-500 dark:text-green-300">Running</p>
+          </div>
+        </div>
+        
+        <!-- Info row: Description + Value -->
+        <div class="text-right __value">
+          <div class="text-right" id="uptime-display">
+            <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">
+              <%= systemData.uptime?.days || 0 %>d
             </div>
-            <div>
-              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Uptime</h3>
-              <p class="text-xs text-neutral-50 dark:text-neutral-60">System running</p>
+            <div class="text-xs text-neutral-50 dark:text-neutral-60">
+              <%= systemData.uptime?.hours || 0 %>h <%= systemData.uptime?.minutes || 0 %>m
             </div>
           </div>
         </div>
-        <div class="text-right" id="uptime-display">
-          <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">
-            <%= systemData.uptime?.days || 0 %>d
-          </div>
-          <div class="text-sm text-neutral-50 dark:text-neutral-60">
-            <%= systemData.uptime?.hours || 0 %>h <%= systemData.uptime?.minutes || 0 %>m
-          </div>
-        </div>
+        
+        <!-- Spacer instead of progress bar for uptime -->
+        <div class="h-2"></div>
       </div>
     </div>
 
@@ -480,7 +476,7 @@
   </main>
 
   <!-- Floating Action Button (FAB) for shortcuts help -->
-  <div class="fixed bottom-6 right-6 bg-primary-40 hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group">
+  <div class="fixed bottom-6 right-6 bg-primary-40 w-12 h-12 flex items-center justify-center hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group">
     <button class="p-4 text-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-40/20 rounded-full" title="Keyboard shortcuts">
       <span class="material-icons text-xl">keyboard</span>
     </button>
@@ -488,10 +484,10 @@
     <!-- Tooltip -->
     <div class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[150px]">
       <div class="space-y-1 text-xs">
-        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">T</kbd> Theme</div>
-        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">R</kbd> Refresh</div>
-        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">L</kbd> Logout</div>
-        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">1-9</kbd> Apps</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">T</kbd> Theme</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">R</kbd> Refresh</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">L</kbd> Logout</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">1-9</kbd> Apps</div>
       </div>
     </div>
   </div>
@@ -559,8 +555,8 @@
         
         const tempBar = document.getElementById('temp-bar');
         tempBar.className = `h-2 rounded-full transition-all duration-500 ${
-          data.temperature.cpu > 80 ? 'bg-error-40' : 
-          data.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40'
+          data.temperature.cpu > 85 ? 'bg-error-40' : 
+          data.temperature.cpu > 70 ? 'bg-warning-50' : 'bg-success-40'
         }`;
       }
 
@@ -573,8 +569,9 @@
       // Update Battery (if available)
       if (data.battery && data.battery.available && document.getElementById('battery-level')) {
         document.getElementById('battery-level').textContent = `${data.battery.percentage}%`;
-        document.getElementById('battery-status').textContent = data.battery.status + 
-          (data.battery.timeRemaining ? ` - ${data.battery.timeRemaining}` : '');
+
+        document.getElementById('battery-status').textContent = /*data.battery.status + */
+          (data.battery.timeRemaining ? `${data.battery.timeRemaining}` : data.battery.status);
         document.getElementById('battery-bar').style.width = `${data.battery.percentage}%`;
         
         const batteryIcon = document.getElementById('battery-icon');
@@ -590,7 +587,7 @@
       if (data.uptime) {
         document.getElementById('uptime-display').innerHTML = `
           <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">${data.uptime.days}d</div>
-          <div class="text-sm text-neutral-50 dark:text-neutral-60">${data.uptime.hours}h ${data.uptime.minutes}m</div>
+          <div class="text-xs text-neutral-50 dark:text-neutral-60">${data.uptime.hours}h ${data.uptime.minutes}m</div>
         `;
       }
     }
