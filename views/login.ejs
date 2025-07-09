@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Octagon Launcher - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            'material': ['Roboto', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            // Material Design 3 color tokens
+            primary: {
+              0: '#000000',
+              10: '#001c3b',
+              20: '#002f5f',
+              25: '#003a73',
+              30: '#004586',
+              35: '#0051a0',
+              40: '#005db4',
+              50: '#0075dc',
+              60: '#3f90ff',
+              70: '#79acff',
+              80: '#aac7ff',
+              90: '#d6e3ff',
+              95: '#ecf0ff',
+              98: '#f8f9ff',
+              99: '#fdfbff',
+              100: '#ffffff'
+            },
+            secondary: {
+              0: '#000000',
+              10: '#171c2c',
+              20: '#2c3042',
+              25: '#37394d',
+              30: '#424458',
+              35: '#4e4f64',
+              40: '#5a5b70',
+              50: '#73738a',
+              60: '#8d8ca4',
+              70: '#a8a6bf',
+              80: '#c4c1da',
+              90: '#e0ddf6',
+              95: '#eeebff',
+              98: '#faf8ff',
+              99: '#fefbff',
+              100: '#ffffff'
+            },
+            tertiary: {
+              0: '#000000',
+              10: '#2a1430',
+              20: '#402946',
+              25: '#4c3051',
+              30: '#58375d',
+              35: '#643e68',
+              40: '#714574',
+              50: '#8b5e8a',
+              60: '#a677a0',
+              70: '#c191b7',
+              80: '#ddabce',
+              90: '#fac6e6',
+              95: '#fde2f4',
+              98: '#fff7fb',
+              99: '#fffbff',
+              100: '#ffffff'
+            },
+            error: {
+              0: '#000000',
+              10: '#410e0b',
+              20: '#601410',
+              25: '#6f1c16',
+              30: '#7e251c',
+              35: '#8d2e22',
+              40: '#9c3729',
+              50: '#bb4a37',
+              60: '#dc5e46',
+              70: '#fe7256',
+              80: '#ff8a65',
+              90: '#ffb4ab',
+              95: '#ffcdd2',
+              98: '#fff4f3',
+              99: '#fffbff',
+              100: '#ffffff'
+            },
+            neutral: {
+              0: '#000000',
+              4: '#0f0d13',
+              6: '#141218',
+              10: '#1c1b1f',
+              12: '#201f23',
+              17: '#2b2930',
+              20: '#313033',
+              22: '#35343a',
+              24: '#3a3841',
+              25: '#3c3b42',
+              30: '#48464c',
+              35: '#545258',
+              40: '#605d64',
+              50: '#797680',
+              60: '#938f99',
+              70: '#aea9b4',
+              80: '#cac4d0',
+              87: '#e0d9e5',
+              90: '#e6e0e9',
+              92: '#ece6f0',
+              94: '#f3edf7',
+              95: '#f7f2fa',
+              96: '#faf4f9',
+              98: '#fef7ff',
+              99: '#fffbfe',
+              100: '#ffffff'
+            },
+            'neutral-variant': {
+              0: '#000000',
+              10: '#1d1a22',
+              20: '#322f37',
+              25: '#3e3a42',
+              30: '#49454f',
+              35: '#55515c',
+              40: '#615d68',
+              50: '#7a7581',
+              60: '#948f9b',
+              70: '#afa9b6',
+              80: '#cbc4d1',
+              90: '#e7e0ec',
+              95: '#f5eefa',
+              98: '#fef7ff',
+              99: '#fffbfe',
+              100: '#ffffff'
+            },
+            success: {
+              0: '#000000',
+              10: '#002106',
+              20: '#00390a',
+              25: '#004212',
+              30: '#005319',
+              35: '#006421',
+              40: '#007628',
+              50: '#299537',
+              60: '#40b046',
+              70: '#5bcc57',
+              80: '#77e96a',
+              90: '#94ff8c',
+              95: '#c6ffbe',
+              98: '#f0fff0',
+              99: '#f8fff8',
+              100: '#ffffff'
+            },
+            warning: {
+              0: '#000000',
+              10: '#261900',
+              20: '#402d00',
+              25: '#4f3800',
+              30: '#5f4100',
+              35: '#6f4b00',
+              40: '#7f5500',
+              50: '#a06b00',
+              60: '#c28400',
+              70: '#e49d00',
+              80: '#ffb734',
+              90: '#ffd15c',
+              95: '#ffe9a0',
+              98: '#fff5d6',
+              99: '#fffbff',
+              100: '#ffffff'
+            }
+          },
+          boxShadow: {
+            'md3-1': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+            'md3-2': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
+            'md3-3': '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
+            'md3-4': '0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
+            'md3-5': '0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-neutral-98 dark:bg-neutral-6 flex items-center justify-center font-material">
+  <div class="w-full max-w-md">
+    <!-- Logo and Title -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-40 rounded-full mb-4 shadow-md3-2">
+        <span class="material-icons text-primary-100 text-2xl">dashboard</span>
+      </div>
+      <h1 class="text-3xl font-medium text-neutral-10 dark:text-neutral-90 mb-2">Octagon Launcher</h1>
+      <p class="text-neutral-50 dark:text-neutral-60">Application Hub & System Monitor</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-3 p-8">
+      <form method="POST" action="/login" class="space-y-6">
+        <div>
+          <label for="password" class="block text-sm font-medium text-neutral-10 dark:text-neutral-90 mb-2">
+            Password
+          </label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required
+              class="w-full px-4 py-3 border border-neutral-variant-50 dark:border-neutral-variant-60 rounded-xl bg-neutral-99 dark:bg-neutral-10 text-neutral-10 dark:text-neutral-90 focus:border-primary-40 focus:outline-none focus:ring-1 focus:ring-primary-40 transition-all duration-200"
+              placeholder="Enter your password"
+              autofocus
+            >
+            <span class="material-icons absolute right-3 top-3 text-neutral-variant-50 text-xl">lock</span>
+          </div>
+        </div>
+
+        <% if (error) { %>
+          <div class="bg-error-95 dark:bg-error-10 border border-error-60 dark:border-error-30 rounded-2xl p-4">
+            <div class="flex items-center">
+              <span class="material-icons text-error-40 dark:text-error-80 mr-3">error</span>
+              <span class="text-sm text-error-10 dark:text-error-90"><%= error %></span>
+            </div>
+          </div>
+        <% } %>
+
+        <button 
+          type="submit"
+          class="w-full bg-primary-40 hover:bg-primary-30 focus:bg-primary-35 text-primary-100 font-medium py-3 px-6 rounded-full transition-all duration-200 flex items-center justify-center space-x-2 group shadow-md3-2 hover:shadow-md3-3 focus:outline-none focus:ring-2 focus:ring-primary-40/20"
+        >
+          <span>Sign in</span>
+          <span class="material-icons group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8">
+      <p class="text-sm text-neutral-50 dark:text-neutral-60">
+        Press <kbd class="px-2 py-1 bg-neutral-90 dark:bg-neutral-20 border border-neutral-variant-50 dark:border-neutral-variant-60 rounded-lg text-xs font-mono text-neutral-10 dark:text-neutral-90">Enter</kbd> to login
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Enter key submission
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        this.closest('form').submit();
+      }
+    });
+
+    // Auto-focus password field
+    document.getElementById('password').focus();
+  </script>
+</body>
+</html>
