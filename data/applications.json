@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Portainer",
+    "description": "Docker container management",
+    "url": "http://localhost:9000",
+    "icon": "widgets"
+  },
+  {
+    "name": "Nginx Proxy Manager",
+    "description": "Reverse proxy management",
+    "url": "http://localhost:81",
+    "icon": "route"
+  },
+  {
+    "name": "Grafana",
+    "description": "Monitoring and observability",
+    "url": "http://localhost:3000",
+    "icon": "analytics"
+  },
+  {
+    "name": "Home Assistant",
+    "description": "Home automation hub",
+    "url": "http://localhost:8123",
+    "icon": "home"
+  },
+  {
+    "name": "Pi-hole",
+    "description": "Network-wide ad blocking",
+    "url": "http://localhost:80/admin",
+    "icon": "security"
+  },
+  {
+    "name": "Jellyfin",
+    "description": "Media server",
+    "url": "http://localhost:8096",
+    "icon": "play_circle"
+  },
+  {
+    "name": "Nextcloud",
+    "description": "Personal cloud storage",
+    "url": "http://localhost:8080",
+    "icon": "cloud"
+  },
+  {
+    "name": "Node-RED",
+    "description": "Visual automation tool",
+    "url": "http://localhost:1880",
+    "icon": "device_hub"
+  },
+  {
+    "name": "Prometheus",
+    "description": "Metrics collection",
+    "url": "http://localhost:9090",
+    "icon": "monitor_heart"
+  },
+  {
+    "name": "Traefik",
+    "description": "Reverse proxy & load balancer",
+    "url": "http://localhost:8080/dashboard/",
+    "icon": "swap_horiz"
+  },
+  {
+    "name": "PhotoPrism",
+    "description": "Photo management",
+    "url": "http://localhost:2342",
+    "icon": "photo_library"
+  },
+  {
+    "name": "GitLab",
+    "description": "Git repository management",
+    "url": "http://localhost:8929",
+    "icon": "code"
+  }
+]

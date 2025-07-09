@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Octagon Launcher - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            'material': ['Roboto', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            // Material Design 3 color tokens
+            primary: {
+              0: '#000000',
+              10: '#001c3b',
+              20: '#002f5f',
+              25: '#003a73',
+              30: '#004586',
+              35: '#0051a0',
+              40: '#005db4',
+              50: '#0075dc',
+              60: '#3f90ff',
+              70: '#79acff',
+              80: '#aac7ff',
+              90: '#d6e3ff',
+              95: '#ecf0ff',
+              98: '#f8f9ff',
+              99: '#fdfbff',
+              100: '#ffffff'
+            },
+            secondary: {
+              0: '#000000',
+              10: '#171c2c',
+              20: '#2c3042',
+              25: '#37394d',
+              30: '#424458',
+              35: '#4e4f64',
+              40: '#5a5b70',
+              50: '#73738a',
+              60: '#8d8ca4',
+              70: '#a8a6bf',
+              80: '#c4c1da',
+              90: '#e0ddf6',
+              95: '#eeebff',
+              98: '#faf8ff',
+              99: '#fefbff',
+              100: '#ffffff'
+            },
+            tertiary: {
+              0: '#000000',
+              10: '#2a1430',
+              20: '#402946',
+              25: '#4c3051',
+              30: '#58375d',
+              35: '#643e68',
+              40: '#714574',
+              50: '#8b5e8a',
+              60: '#a677a0',
+              70: '#c191b7',
+              80: '#ddabce',
+              90: '#fac6e6',
+              95: '#fde2f4',
+              98: '#fff7fb',
+              99: '#fffbff',
+              100: '#ffffff'
+            },
+            error: {
+              0: '#000000',
+              10: '#410e0b',
+              20: '#601410',
+              25: '#6f1c16',
+              30: '#7e251c',
+              35: '#8d2e22',
+              40: '#9c3729',
+              50: '#bb4a37',
+              60: '#dc5e46',
+              70: '#fe7256',
+              80: '#ff8a65',
+              90: '#ffb4ab',
+              95: '#ffcdd2',
+              98: '#fff4f3',
+              99: '#fffbff',
+              100: '#ffffff'
+            },
+            neutral: {
+              0: '#000000',
+              4: '#0f0d13',
+              6: '#141218',
+              10: '#1c1b1f',
+              12: '#201f23',
+              17: '#2b2930',
+              20: '#313033',
+              22: '#35343a',
+              24: '#3a3841',
+              25: '#3c3b42',
+              30: '#48464c',
+              35: '#545258',
+              40: '#605d64',
+              50: '#797680',
+              60: '#938f99',
+              70: '#aea9b4',
+              80: '#cac4d0',
+              87: '#e0d9e5',
+              90: '#e6e0e9',
+              92: '#ece6f0',
+              94: '#f3edf7',
+              95: '#f7f2fa',
+              96: '#faf4f9',
+              98: '#fef7ff',
+              99: '#fffbfe',
+              100: '#ffffff'
+            },
+            'neutral-variant': {
+              0: '#000000',
+              10: '#1d1a22',
+              20: '#322f37',
+              25: '#3e3a42',
+              30: '#49454f',
+              35: '#55515c',
+              40: '#615d68',
+              50: '#7a7581',
+              60: '#948f9b',
+              70: '#afa9b6',
+              80: '#cbc4d1',
+              90: '#e7e0ec',
+              95: '#f5eefa',
+              98: '#fef7ff',
+              99: '#fffbfe',
+              100: '#ffffff'
+            },
+            success: {
+              0: '#000000',
+              10: '#002106',
+              20: '#00390a',
+              25: '#004212',
+              30: '#005319',
+              35: '#006421',
+              40: '#007628',
+              50: '#299537',
+              60: '#40b046',
+              70: '#5bcc57',
+              80: '#77e96a',
+              90: '#94ff8c',
+              95: '#c6ffbe',
+              98: '#f0fff0',
+              99: '#f8fff8',
+              100: '#ffffff'
+            },
+            warning: {
+              0: '#000000',
+              10: '#261900',
+              20: '#402d00',
+              25: '#4f3800',
+              30: '#5f4100',
+              35: '#6f4b00',
+              40: '#7f5500',
+              50: '#a06b00',
+              60: '#c28400',
+              70: '#e49d00',
+              80: '#ffb734',
+              90: '#ffd15c',
+              95: '#ffe9a0',
+              98: '#fff5d6',
+              99: '#fffbff',
+              100: '#ffffff'
+            }
+          },
+          boxShadow: {
+            'md3-1': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
+            'md3-2': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
+            'md3-3': '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
+            'md3-4': '0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
+            'md3-5': '0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-neutral-98 dark:bg-neutral-6 font-material">
+  <!-- Header -->
+  <header class="bg-neutral-99 dark:bg-neutral-10 border-b border-neutral-variant-90 dark:border-neutral-variant-30 sticky top-0 z-50 shadow-md3-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo and Title -->
+        <div class="flex items-center space-x-4">
+          <div class="w-10 h-10 bg-primary-40 rounded-full flex items-center justify-center shadow-md3-1">
+            <span class="material-icons text-primary-100 text-xl">dashboard</span>
+          </div>
+          <div>
+            <h1 class="text-xl font-medium text-neutral-10 dark:text-neutral-90">Octagon Launcher</h1>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="hostname"><%= systemData.os?.hostname || 'Server' %></p>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center space-x-3">
+          <!-- Theme Toggle -->
+          <button 
+            id="theme-toggle"
+            class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1"
+            title="Toggle theme (T)"
+          >
+            <span class="material-icons text-secondary-10 dark:text-secondary-90 text-xl" id="theme-icon">dark_mode</span>
+          </button>
+
+          <!-- Refresh Button -->
+          <button 
+            id="refresh-btn"
+            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1"
+            title="Refresh data (R)"
+          >
+            <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">refresh</span>
+          </button>
+
+          <!-- Logout -->
+          <button 
+            onclick="window.location.href='/logout'"
+            class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1"
+            title="Logout (L)"
+          >
+            <span class="material-icons text-error-10 dark:text-error-90 text-xl">logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- System Information Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6 mb-8">
+      <!-- CPU Usage Card -->
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-primary-10 dark:text-primary-80 text-xl">memory</span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">CPU</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.cpu?.cores || 0 %> cores</p>
+            </div>
+          </div>
+          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-usage">
+            <%= systemData.cpu?.usage || 0 %>%
+          </span>
+        </div>
+        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+          <div 
+            class="bg-primary-40 h-2 rounded-full transition-all duration-500" 
+            style="width: <%= systemData.cpu?.usage || 0 %>%"
+            id="cpu-bar"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Memory Usage Card -->
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-success-90 dark:bg-success-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-success-10 dark:text-success-80 text-xl">storage</span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Memory</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="memory-info">
+                <%= systemData.memory?.used || 0 %>GB / <%= systemData.memory?.total || 0 %>GB
+              </p>
+            </div>
+          </div>
+          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="memory-usage">
+            <%= systemData.memory?.percentage || 0 %>%
+          </span>
+        </div>
+        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+          <div 
+            class="bg-success-40 h-2 rounded-full transition-all duration-500" 
+            style="width: <%= systemData.memory?.percentage || 0 %>%"
+            id="memory-bar"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Temperature Card -->
+      <% if (systemData.temperature?.available) { %>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-warning-10 dark:text-warning-80 text-xl">thermostat</span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Temperature</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60">CPU core</p>
+            </div>
+          </div>
+          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-temp">
+            <%= systemData.temperature.cpu %>°C
+          </span>
+        </div>
+        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+          <div 
+            class="h-2 rounded-full transition-all duration-500 <%= systemData.temperature.cpu > 80 ? 'bg-error-40' : systemData.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40' %>" 
+            style="width: <%= Math.min(systemData.temperature.cpu, 100) %>%"
+            id="temp-bar"
+          ></div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Power Consumption Card -->
+      <% if (systemData.power?.available) { %>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-tertiary-90 dark:bg-tertiary-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-tertiary-10 dark:text-tertiary-80 text-xl">bolt</span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Power</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.power.note %></p>
+            </div>
+          </div>
+          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="power-usage">
+            <%= systemData.power.estimatedWatts %>W
+          </span>
+        </div>
+        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+          <div 
+            class="bg-tertiary-40 h-2 rounded-full transition-all duration-500" 
+            style="width: <%= Math.min(systemData.power.estimatedWatts, 100) %>%"
+            id="power-bar"
+          ></div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Battery Card (if available) -->
+      <% if (systemData.battery?.available) { %>
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-warning-10 dark:text-warning-80 text-xl" id="battery-icon">
+                <%= systemData.battery.isCharging ? 'battery_charging_full' : 'battery_std' %>
+              </span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Battery</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="battery-status">
+                <%= systemData.battery.status %>
+                <% if (systemData.battery.timeRemaining) { %>
+                  - <%= systemData.battery.timeRemaining %>
+                <% } %>
+              </p>
+            </div>
+          </div>
+          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="battery-level">
+            <%= systemData.battery.percentage %>%
+          </span>
+        </div>
+        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+          <div 
+            class="h-2 rounded-full transition-all duration-500 <%= systemData.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40' %>" 
+            style="width: <%= systemData.battery.percentage %>%"
+            id="battery-bar"
+          ></div>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Uptime Card -->
+      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-secondary-90 dark:bg-secondary-20 rounded-2xl flex items-center justify-center">
+              <span class="material-icons text-secondary-10 dark:text-secondary-80 text-xl">schedule</span>
+            </div>
+            <div>
+              <h3 class="font-medium text-neutral-10 dark:text-neutral-90">Uptime</h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60">System running</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-right" id="uptime-display">
+          <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">
+            <%= systemData.uptime?.days || 0 %>d
+          </div>
+          <div class="text-sm text-neutral-50 dark:text-neutral-60">
+            <%= systemData.uptime?.hours || 0 %>h <%= systemData.uptime?.minutes || 0 %>m
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Storage Information -->
+    <% if (systemData.storage && systemData.storage.length > 0) { %>
+    <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 mb-8 hover:shadow-md3-3 transition-all duration-300">
+      <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
+        <span class="material-icons mr-3">hard_drive</span>
+        Storage
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="storage-grid">
+        <% systemData.storage.forEach(drive => { %>
+        <div class="p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl">
+          <div class="flex justify-between items-center mb-3">
+            <span class="font-medium text-neutral-10 dark:text-neutral-90"><%= drive.fs %></span>
+            <span class="text-sm text-neutral-50 dark:text-neutral-60">
+              <%= drive.used %>GB / <%= drive.size %>GB
+            </span>
+          </div>
+          <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
+            <div 
+              class="bg-primary-40 h-2 rounded-full" 
+              style="width: <%= drive.percentage %>%"
+            ></div>
+          </div>
+          <div class="text-xs text-neutral-50 dark:text-neutral-60 mt-2">
+            <%= drive.percentage %>% used
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- Applications Grid -->
+    <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
+      <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
+        <span class="material-icons mr-3">apps</span>
+        Applications
+        <span class="ml-auto text-sm font-normal text-neutral-50 dark:text-neutral-60" id="app-count">
+          <%= applications.length %> apps
+        </span>
+      </h2>
+      
+      <% if (applications.length === 0) { %>
+      <div class="text-center py-12">
+        <span class="material-icons text-neutral-60 text-6xl mb-4">inventory_2</span>
+        <h3 class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2">No Applications</h3>
+        <p class="text-neutral-50 dark:text-neutral-60">Add applications to your JSON file to see them here.</p>
+      </div>
+      <% } else { %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4" id="applications-grid">
+        <% applications.forEach((app, index) => { %>
+        <button 
+          class="app-card p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20"
+          onclick="openApplication('<%= app.url %>')"
+          data-index="<%= index %>"
+          title="<%= app.description || app.name %>"
+        >
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-3 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center group-hover:bg-primary-80 dark:group-hover:bg-primary-30 transition-colors duration-200">
+              <span class="material-icons text-primary-10 dark:text-primary-80 text-xl">
+                <%= app.icon || 'apps' %>
+              </span>
+            </div>
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-sm truncate">
+              <%= app.name %>
+            </h3>
+            <% if (app.description) { %>
+            <p class="text-xs text-neutral-50 dark:text-neutral-60 mt-1 truncate">
+              <%= app.description %>
+            </p>
+            <% } %>
+          </div>
+        </button>
+        <% }); %>
+      </div>
+      <% } %>
+    </div>
+  </main>
+
+  <!-- Floating Action Button (FAB) for shortcuts help -->
+  <div class="fixed bottom-6 right-6 bg-primary-40 hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group">
+    <button class="p-4 text-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-40/20 rounded-full" title="Keyboard shortcuts">
+      <span class="material-icons text-xl">keyboard</span>
+    </button>
+    
+    <!-- Tooltip -->
+    <div class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[150px]">
+      <div class="space-y-1 text-xs">
+        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">T</kbd> Theme</div>
+        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">R</kbd> Refresh</div>
+        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">L</kbd> Logout</div>
+        <div><kbd class="px-1 bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded text-xs font-mono">1-9</kbd> Apps</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // System data refresh interval
+    const REFRESH_INTERVAL = <%= refreshInterval %>;
+    let refreshTimer;
+
+    // Theme management
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+
+    function toggleTheme() {
+      const isDark = html.classList.contains('dark');
+      html.classList.toggle('dark');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+
+    // Initialize theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.classList.toggle('dark', savedTheme === 'dark');
+      themeIcon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Application functions
+    function openApplication(url) {
+      window.open(url, '_blank');
+    }
+
+    // System data refresh
+    async function refreshSystemData() {
+      try {
+        const response = await fetch('/api/system');
+        const data = await response.json();
+        updateSystemDisplay(data);
+      } catch (error) {
+        console.error('Failed to refresh system data:', error);
+      }
+    }
+
+    function updateSystemDisplay(data) {
+      // Update CPU
+      if (data.cpu) {
+        document.getElementById('cpu-usage').textContent = `${data.cpu.usage}%`;
+        document.getElementById('cpu-bar').style.width = `${data.cpu.usage}%`;
+      }
+
+      // Update Memory
+      if (data.memory) {
+        document.getElementById('memory-usage').textContent = `${data.memory.percentage}%`;
+        document.getElementById('memory-info').textContent = `${data.memory.used}GB / ${data.memory.total}GB`;
+        document.getElementById('memory-bar').style.width = `${data.memory.percentage}%`;
+      }
+
+      // Update Temperature
+      if (data.temperature && data.temperature.available && document.getElementById('cpu-temp')) {
+        document.getElementById('cpu-temp').textContent = `${data.temperature.cpu}°C`;
+        document.getElementById('temp-bar').style.width = `${Math.min(data.temperature.cpu, 100)}%`;
+        
+        const tempBar = document.getElementById('temp-bar');
+        tempBar.className = `h-2 rounded-full transition-all duration-500 ${
+          data.temperature.cpu > 80 ? 'bg-error-40' : 
+          data.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40'
+        }`;
+      }
+
+      // Update Power
+      if (data.power && data.power.available && document.getElementById('power-usage')) {
+        document.getElementById('power-usage').textContent = `${data.power.estimatedWatts}W`;
+        document.getElementById('power-bar').style.width = `${Math.min(data.power.estimatedWatts, 100)}%`;
+      }
+
+      // Update Battery (if available)
+      if (data.battery && data.battery.available && document.getElementById('battery-level')) {
+        document.getElementById('battery-level').textContent = `${data.battery.percentage}%`;
+        document.getElementById('battery-status').textContent = data.battery.status + 
+          (data.battery.timeRemaining ? ` - ${data.battery.timeRemaining}` : '');
+        document.getElementById('battery-bar').style.width = `${data.battery.percentage}%`;
+        
+        const batteryIcon = document.getElementById('battery-icon');
+        batteryIcon.textContent = data.battery.isCharging ? 'battery_charging_full' : 'battery_std';
+        
+        const batteryBar = document.getElementById('battery-bar');
+        batteryBar.className = `h-2 rounded-full transition-all duration-500 ${
+          data.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40'
+        }`;
+      }
+
+      // Update Uptime
+      if (data.uptime) {
+        document.getElementById('uptime-display').innerHTML = `
+          <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">${data.uptime.days}d</div>
+          <div class="text-sm text-neutral-50 dark:text-neutral-60">${data.uptime.hours}h ${data.uptime.minutes}m</div>
+        `;
+      }
+    }
+
+    // Refresh button
+    document.getElementById('refresh-btn').addEventListener('click', refreshSystemData);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Only handle shortcuts if not in an input field
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      switch(e.key.toLowerCase()) {
+        case 't':
+          e.preventDefault();
+          toggleTheme();
+          break;
+        case 'r':
+          e.preventDefault();
+          refreshSystemData();
+          break;
+        case 'l':
+          e.preventDefault();
+          window.location.href = '/logout';
+          break;
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          e.preventDefault();
+          const appIndex = parseInt(e.key) - 1;
+          const appCard = document.querySelector(`[data-index="${appIndex}"]`);
+          if (appCard) {
+            appCard.click();
+          }
+          break;
+      }
+    });
+
+    // Start auto-refresh
+    function startAutoRefresh() {
+      refreshTimer = setInterval(refreshSystemData, REFRESH_INTERVAL);
+    }
+
+    function stopAutoRefresh() {
+      if (refreshTimer) {
+        clearInterval(refreshTimer);
+      }
+    }
+
+    // Page visibility handling
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        stopAutoRefresh();
+      } else {
+        startAutoRefresh();
+        refreshSystemData(); // Immediate refresh when page becomes visible
+      }
+    });
+
+    // Initialize auto-refresh
+    startAutoRefresh();
+
+    console.log('🚀 Octagon Launcher Dashboard loaded with Material Design 3');
+  </script>
+</body>
+</html>
