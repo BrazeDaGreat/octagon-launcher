@@ -9,22 +9,29 @@
     "build-css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch",
     "build-css-prod": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --minify"
   },
-  "keywords": ["launcher", "dashboard", "home-server", "system-monitor"],
+  "keywords": [
+    "launcher",
+    "dashboard",
+    "home-server",
+    "system-monitor"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "ejs": "^3.1.9",
     "bcrypt": "^5.1.1",
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
     "express-session": "^1.17.3",
-    "systeminformation": "^5.21.20",
     "node-cron": "^3.0.3",
-    "express-rate-limit": "^7.1.5"
+    "pocketbase": "^0.26.1",
+    "systeminformation": "^5.21.20"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "nodemon": "^3.0.2",
-    "tailwindcss": "^3.4.0",
-    "@tailwindcss/forms": "^0.5.7"
+    "tailwindcss": "^3.4.0"
   },
   "packageManager": "pnpm@10.12.4"
 }

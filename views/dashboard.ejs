@@ -210,7 +210,6 @@
             </div>
           </div>
         </div>
-
         <!-- Search Input (Hidden by default) -->
         <div class="flex-1 max-w-md mx-8">
           <div id="search-container" class="relative hidden">
@@ -227,7 +226,6 @@
             >close</button>
           </div>
         </div>
-
         <!-- Controls -->
         <div class="flex items-center space-x-3">
           <!-- Search Toggle -->
@@ -238,7 +236,6 @@
           >
             <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">search</span>
           </button>
-
           <!-- Theme Toggle -->
           <button 
             id="theme-toggle"
@@ -247,7 +244,6 @@
           >
             <span class="material-icons text-secondary-10 dark:text-secondary-90 text-xl" id="theme-icon">dark_mode</span>
           </button>
-
           <!-- Refresh Button -->
           <button 
             id="refresh-btn"
@@ -257,7 +253,6 @@
           >
             <span class="material-icons text-success-10 dark:text-success-90 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-xl transition-all duration-200" id="refresh-icon">refresh</span>
           </button>
-
           <!-- Logout -->
           <button 
             onclick="window.location.href='/logout'"
@@ -270,7 +265,6 @@
       </div>
     </div>
   </header>
-
   <!-- Search Status Bar -->
   <div id="search-status" class="hidden bg-primary-95 dark:bg-primary-10 border-b border-primary-80 dark:border-primary-30 px-4 py-2">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -283,7 +277,6 @@
       <span id="filter-count" class="text-xs text-primary-40 dark:text-primary-60"></span>
     </div>
   </div>
-
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- System Information Grid -->
@@ -317,7 +310,6 @@
           ></div>
         </div>
       </div>
-
       <!-- Memory Usage Card -->
       <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
         <!-- Header: Icon + Title -->
@@ -349,7 +341,6 @@
           ></div>
         </div>
       </div>
-
       <!-- Temperature Card -->
       <% if (systemData.temperature?.available) { %>
       <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
@@ -381,7 +372,6 @@
         </div>
       </div>
       <% } %>
-
       <!-- Battery Card (if available) -->
       <% if (systemData.battery?.available) { %>
       <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
@@ -417,7 +407,6 @@
         </div>
       </div>
       <% } %>
-
       <!-- Uptime Card -->
       <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
         <!-- Header: Icon + Title -->
@@ -447,7 +436,6 @@
         <div class="h-2"></div>
       </div>
     </div>
-
     <!-- Storage Information -->
     <% 
     // Filter out drives with 0 or very small capacity (< 1GB)
@@ -485,15 +473,23 @@
       </div>
     </div>
     <% } %>
-
     <!-- Applications Grid -->
     <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
       <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
         <span class="material-icons mr-3">apps</span>
         Applications
-        <span class="ml-auto text-sm font-normal text-neutral-50 dark:text-neutral-60" id="app-count">
-          <%= applications.length %> apps
-        </span>
+        <div class="ml-auto flex items-center space-x-3">
+          <span class="text-sm font-normal text-neutral-50 dark:text-neutral-60" id="app-count">
+            <%= applications.length %> apps
+          </span>
+          <button 
+            id="refresh-apps-btn"
+            class="p-2 bg-primary-90 dark:bg-primary-20 hover:bg-primary-80 dark:hover:bg-primary-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-xl transition-all duration-200 shadow-md3-1 w-9 h-9 disabled:cursor-not-allowed group flex items-center justify-center"
+            title="Refresh applications (Ctrl+Shift+R)"
+          >
+            <span class="material-icons text-primary-10 dark:text-primary-80 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-sm transition-all duration-200 group-hover:scale-110" id="refresh-apps-icon">refresh</span>
+          </button>
+        </div>
       </h2>
       
       <% if (applications.length === 0) { %>
@@ -503,26 +499,31 @@
         <p class="text-neutral-50 dark:text-neutral-60">Add applications to your JSON file to see them here.</p>
       </div>
       <% } else { %>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4" id="applications-grid">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="applications-grid">
         <% applications.forEach((app, index) => { %>
         <button 
-          class="app-card p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20"
+          class="app-card p-6 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-3xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20 min-h-[140px] flex flex-col justify-between"
           onclick="openApplication('<%= app.url %>')"
           data-index="<%= index %>"
           data-name="<%= app.name.toLowerCase() %>"
           title="<%= app.description || app.name %>"
         >
-          <div class="text-center">
-            <div class="w-12 h-12 mx-auto mb-3 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center group-hover:bg-primary-80 dark:group-hover:bg-primary-30 transition-colors duration-200">
-              <span class="material-icons text-primary-10 dark:text-primary-80 text-xl">
+          <div class="text-center flex flex-col items-center">
+            <!-- Icon Container - Fixed size and perfectly centered -->
+            <div class="w-16 h-16 mx-auto mb-4 bg-primary-90 dark:bg-primary-20 rounded-3xl flex items-center justify-center group-hover:bg-primary-80 dark:group-hover:bg-primary-30 transition-colors duration-200 flex-shrink-0">
+              <span class="material-icons text-primary-10 dark:text-primary-80 text-2xl">
                 <%= app.icon || 'apps' %>
               </span>
             </div>
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-sm truncate">
+            
+            <!-- App Name -->
+            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-sm leading-tight mb-2 text-center">
               <%= app.name %>
             </h3>
+            
+            <!-- Description - Allow wrapping but limit height -->
             <% if (app.description) { %>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60 mt-1 truncate">
+            <p class="text-xs text-neutral-50 dark:text-neutral-60 leading-relaxed text-center line-clamp-2 max-h-8 overflow-hidden">
               <%= app.description %>
             </p>
             <% } %>
@@ -530,7 +531,6 @@
         </button>
         <% }); %>
       </div>
-
       <!-- No Results Message -->
       <div id="no-results" class="hidden text-center py-12">
         <span class="material-icons text-neutral-60 text-6xl mb-4">search_off</span>
@@ -540,7 +540,6 @@
       <% } %>
     </div>
   </main>
-
   <!-- Floating Action Button (FAB) for shortcuts help -->
   <div class="fixed bottom-6 right-6 bg-primary-40 w-12 h-12 flex items-center justify-center hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group">
     <button class="p-4 text-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-40/20 rounded-full" title="Keyboard shortcuts">
@@ -552,6 +551,7 @@
       <div class="space-y-1 text-xs">
         <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+T</kbd> Theme</div>
         <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+R</kbd> Refresh</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+Shift+R</kbd> Refresh Apps</div>
         <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+L</kbd> Logout</div>
         <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+F</kbd> Search</div>
         <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+1-9</kbd> Apps</div>
@@ -562,12 +562,21 @@
       </div>
     </div>
   </div>
-
+  <!-- Custom CSS for line clamping -->
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
   <script>
     // System data refresh interval
     const REFRESH_INTERVAL = <%= refreshInterval %>;
     let refreshTimer;
     let isRefreshing = false;
+    let isRefreshingApps = false;
 
     // Application filtering
     let allApps = [];
@@ -577,6 +586,8 @@
     // Elements
     const refreshBtn = document.getElementById('refresh-btn');
     const refreshIcon = document.getElementById('refresh-icon');
+    const refreshAppsBtn = document.getElementById('refresh-apps-btn');
+    const refreshAppsIcon = document.getElementById('refresh-apps-icon');
     const lastUpdated = document.getElementById('last-updated');
 
     // Theme management
@@ -721,6 +732,53 @@
       }
     }
 
+    // Applications refresh
+    async function refreshApplications() {
+      if (isRefreshingApps) return; // Prevent multiple concurrent requests
+      
+      try {
+        // Set refreshing state
+        isRefreshingApps = true;
+        refreshAppsBtn.disabled = true;
+        refreshAppsIcon.classList.add('animate-spin');
+        refreshAppsBtn.title = 'Refreshing applications...';
+        
+        const response = await fetch('/api/applications/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Reload the page to get updated applications
+          window.location.reload();
+        } else {
+          throw new Error(data.error || 'Failed to refresh applications');
+        }
+        
+      } catch (error) {
+        console.error('Failed to refresh applications:', error);
+        // Show error state briefly
+        refreshAppsIcon.textContent = 'error';
+        setTimeout(() => {
+          refreshAppsIcon.textContent = 'refresh';
+        }, 2000);
+      } finally {
+        // Reset refreshing state
+        isRefreshingApps = false;
+        refreshAppsBtn.disabled = false;
+        refreshAppsIcon.classList.remove('animate-spin');
+        refreshAppsBtn.title = 'Refresh applications (Ctrl+Shift+R)';
+      }
+    }
+
     function updateSystemDisplay(data) {
       // Update CPU
       if (data.cpu) {
@@ -775,6 +833,9 @@
     // Refresh button
     document.getElementById('refresh-btn').addEventListener('click', refreshSystemData);
 
+    // Refresh applications button
+    document.getElementById('refresh-apps-btn').addEventListener('click', refreshApplications);
+
     // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       // Only handle shortcuts if not in an input field
@@ -798,8 +859,16 @@
             break;
           case 'r':
             e.preventDefault();
-            if (!isRefreshing) {
-              refreshSystemData();
+            if (e.shiftKey) {
+              // Ctrl+Shift+R for refreshing applications
+              if (!isRefreshingApps) {
+                refreshApplications();
+              }
+            } else {
+              // Ctrl+R for refreshing system data
+              if (!isRefreshing) {
+                refreshSystemData();
+              }
             }
             break;
           case 'l':

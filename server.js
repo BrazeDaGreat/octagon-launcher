@@ -1,3 +1,6 @@
+// Load environment variables first
+require("dotenv").config();
+
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
@@ -8,17 +11,41 @@ const cron = require("node-cron");
 const rateLimit = require("express-rate-limit");
 const { exec } = require("child_process");
 const util = require("util");
+const PocketBase = require("pocketbase/cjs");
 
 const app = express();
-const PORT = 7801;
+const PORT = process.env.PORT || 7801;
 const execAsync = util.promisify(exec);
 
-// Configuration
+// Configuration from environment variables
 const CONFIG = {
-  password: "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // 'password' - Change this!
-  sessionSecret: "octagon-launcher-secret-key-change-this",
-  refreshInterval: 5000, // 5 seconds
+  password:
+    process.env.PASSWORD_HASH ||
+    "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // 'password' - Change this!
+  sessionSecret:
+    process.env.SESSION_SECRET || "octagon-launcher-secret-key-change-this",
+  refreshInterval: parseInt(process.env.REFRESH_INTERVAL) || 5000, // 5 seconds
+  pocketbase: {
+    url: process.env.POCKETBASE_URL || "https://pb.ziistdio.com",
+    email: process.env.POCKETBASE_EMAIL,
+    password: process.env.POCKETBASE_PASSWORD,
+    collection: process.env.POCKETBASE_COLLECTION || "applications",
+  },
 };
+
+// Validate required environment variables
+if (!CONFIG.pocketbase.email || !CONFIG.pocketbase.password) {
+  console.error(
+    "❌ Missing required Pocketbase credentials in environment variables"
+  );
+  console.error(
+    "Please set POCKETBASE_EMAIL and POCKETBASE_PASSWORD in your .env file"
+  );
+  process.exit(1);
+}
+
+// Initialize Pocketbase client
+const pb = new PocketBase(CONFIG.pocketbase.url);
 
 // Middleware
 app.use(express.json());
@@ -52,6 +79,7 @@ app.use(
 // Global system data storage
 let systemData = {};
 let applications = [];
+let pocketbaseConnected = false;
 
 // Authentication middleware
 function requireAuth(req, res, next) {
@@ -62,21 +90,80 @@ function requireAuth(req, res, next) {
   }
 }
 
-// Load applications from JSON file
-async function loadApplications() {
+// Pocketbase authentication
+async function authenticatePocketbase() {
   try {
-    const data = await fs.readFile("data/applications.json", "utf8");
-    applications = JSON.parse(data);
+    console.log("🔐 Authenticating with Pocketbase...");
+    await pb.admins.authWithPassword(
+      CONFIG.pocketbase.email,
+      CONFIG.pocketbase.password
+    );
+    pocketbaseConnected = true;
+    console.log("✅ Pocketbase authentication successful");
+    return true;
   } catch (error) {
-    console.log("No applications.json found, creating empty list");
-    applications = [];
-    // Create default applications file
-    await ensureDataDirectory();
-    await fs.writeFile("data/applications.json", JSON.stringify([], null, 2));
+    console.error("❌ Pocketbase authentication failed:", error.message);
+    pocketbaseConnected = false;
+    return false;
   }
 }
 
-// Ensure data directory exists
+// Load applications from Pocketbase
+async function loadApplications() {
+  try {
+    if (!pocketbaseConnected) {
+      const authSuccess = await authenticatePocketbase();
+      if (!authSuccess) {
+        console.log(
+          "⚠️  Using fallback empty applications list due to Pocketbase connection failure"
+        );
+        applications = [];
+        return;
+      }
+    }
+
+    console.log("📱 Fetching applications from Pocketbase...");
+    const records = await pb
+      .collection(CONFIG.pocketbase.collection)
+      .getFullList({
+        sort: "name", // Sort by name alphabetically
+      });
+
+    applications = records.map((record) => ({
+      id: record.id,
+      name: record.name,
+      description: record.description || "",
+      url: record.url,
+      icon: record.icon || "apps",
+    }));
+
+    console.log(
+      `✅ Loaded ${applications.length} applications from Pocketbase`
+    );
+  } catch (error) {
+    console.error(
+      "❌ Failed to load applications from Pocketbase:",
+      error.message
+    );
+
+    // Fallback: try to load from JSON file if it exists
+    try {
+      console.log("🔄 Attempting fallback to applications.json...");
+      const data = await fs.readFile("data/applications.json", "utf8");
+      applications = JSON.parse(data);
+      console.log(
+        `⚠️  Loaded ${applications.length} applications from fallback JSON file`
+      );
+    } catch (jsonError) {
+      console.log(
+        "⚠️  No fallback JSON file found, using empty applications list"
+      );
+      applications = [];
+    }
+  }
+}
+
+// Ensure data directory exists (for potential fallback)
 async function ensureDataDirectory() {
   try {
     await fs.access("data");
@@ -233,30 +320,99 @@ app.get("/api/system", requireAuth, (req, res) => {
   res.json(systemData);
 });
 
-app.get("/api/applications", requireAuth, (req, res) => {
-  res.json(applications);
+app.get("/api/applications", requireAuth, async (req, res) => {
+  try {
+    // Try to refresh applications from Pocketbase
+    await loadApplications();
+    res.json(applications);
+  } catch (error) {
+    console.error("Failed to refresh applications:", error);
+    // Return cached applications
+    res.json(applications);
+  }
+});
+
+// API endpoint to refresh applications manually
+app.post("/api/applications/refresh", requireAuth, async (req, res) => {
+  try {
+    await loadApplications();
+    res.json({
+      success: true,
+      count: applications.length,
+      message: "Applications refreshed successfully",
+    });
+  } catch (error) {
+    console.error("Failed to refresh applications:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    pocketbaseConnected,
+    applicationsCount: applications.length,
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // Initialize and start server
 async function initialize() {
+  console.log("🚀 Initializing Octagon Launcher...");
+
+  // Ensure data directory exists (for potential fallback)
   await ensureDataDirectory();
+
+  // Authenticate with Pocketbase and load applications
   await loadApplications();
+
+  // Collect initial system information
   await collectSystemInfo();
 
   // Update system info every 5 seconds
   cron.schedule("*/5 * * * * *", collectSystemInfo);
 
+  // Refresh applications from Pocketbase every 5 minutes
+  cron.schedule("*/5 * * * *", async () => {
+    console.log("🔄 Scheduled refresh of applications from Pocketbase");
+    await loadApplications();
+  });
+
   app.listen(PORT, () => {
     console.log(`🚀 Octagon Launcher running on http://localhost:${PORT}`);
     console.log(`📊 System monitoring active`);
     console.log(`🔐 Default password: password (please change this!)`);
+    console.log(
+      `🗄️  Pocketbase: ${
+        pocketbaseConnected ? "✅ Connected" : "❌ Disconnected"
+      }`
+    );
+    console.log(`📱 Applications loaded: ${applications.length}`);
   });
 }
 
 // Graceful shutdown
 process.on("SIGINT", () => {
   console.log("\n🛑 Shutting down Octagon Launcher...");
+  if (pb) {
+    pb.authStore.clear();
+  }
   process.exit(0);
+});
+
+// Handle uncaught exceptions
+process.on("uncaughtException", (error) => {
+  console.error("Uncaught Exception:", error);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
 initialize().catch(console.error);
