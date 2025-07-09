@@ -178,6 +178,9 @@
             'md3-3': '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
             'md3-4': '0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
             'md3-5': '0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)'
+          },
+          animation: {
+            'spin': 'spin 1s linear infinite'
           }
         }
       }
@@ -196,17 +199,51 @@
           </div>
           <div>
             <h1 class="text-xl font-medium text-neutral-10 dark:text-neutral-90">Octagon Launcher</h1>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="hostname"><%= systemData.os?.hostname || 'Server' %></p>
+            <div class="flex items-center space-x-4">
+              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="hostname"><%= systemData.os?.hostname || 'Server' %></p>
+              <div class="flex items-center space-x-1">
+                <span class="material-icons text-neutral-variant-50 dark:text-neutral-variant-60 text-sm">schedule</span>
+                <p class="text-xs text-neutral-50 dark:text-neutral-60" id="last-updated">
+                  Updated <%= new Date(systemData.lastUpdate || Date.now()).toLocaleTimeString() %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Input (Hidden by default) -->
+        <div class="flex-1 max-w-md mx-8">
+          <div id="search-container" class="relative hidden">
+            <input 
+              type="text" 
+              id="search-input"
+              placeholder="Search applications..."
+              class="w-full px-4 py-2 pl-10 pr-10 border border-neutral-variant-50 dark:border-neutral-variant-60 rounded-full bg-neutral-variant-95 dark:bg-neutral-variant-20 text-neutral-10 dark:text-neutral-90 focus:border-primary-40 focus:outline-none focus:ring-1 focus:ring-primary-40 transition-all duration-200"
+            >
+            <span class="material-icons absolute left-3 top-2.5 text-neutral-variant-50 text-lg">search</span>
+            <button 
+              id="search-clear" 
+              class="material-icons absolute right-3 top-2.5 text-neutral-variant-50 hover:text-neutral-variant-30 text-lg transition-colors cursor-pointer"
+            >close</button>
           </div>
         </div>
 
         <!-- Controls -->
         <div class="flex items-center space-x-3">
+          <!-- Search Toggle -->
+          <button 
+            id="search-toggle"
+            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
+            title="Search apps (S)"
+          >
+            <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">search</span>
+          </button>
+
           <!-- Theme Toggle -->
           <button 
             id="theme-toggle"
             class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Toggle theme (T)"
+            title="Toggle theme (Ctrl+T)"
           >
             <span class="material-icons text-secondary-10 dark:text-secondary-90 text-xl" id="theme-icon">dark_mode</span>
           </button>
@@ -214,17 +251,18 @@
           <!-- Refresh Button -->
           <button 
             id="refresh-btn"
-            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Refresh data (R)"
+            class="p-2.5 bg-success-90 dark:bg-success-20 hover:bg-success-80 dark:hover:bg-success-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12 disabled:cursor-not-allowed"
+            title="Refresh data (Ctrl+R)"
+            disabled
           >
-            <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">refresh</span>
+            <span class="material-icons text-success-10 dark:text-success-90 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-xl transition-all duration-200" id="refresh-icon">refresh</span>
           </button>
 
           <!-- Logout -->
           <button 
             onclick="window.location.href='/logout'"
             class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Logout (L)"
+            title="Logout (Ctrl+L)"
           >
             <span class="material-icons text-error-10 dark:text-error-90 text-xl">logout</span>
           </button>
@@ -232,6 +270,19 @@
       </div>
     </div>
   </header>
+
+  <!-- Search Status Bar -->
+  <div id="search-status" class="hidden bg-primary-95 dark:bg-primary-10 border-b border-primary-80 dark:border-primary-30 px-4 py-2">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <span class="material-icons text-primary-30 dark:text-primary-70 text-sm">filter_list</span>
+        <span class="text-sm text-primary-20 dark:text-primary-80">
+          Search mode active - Type to filter apps, <kbd class="px-1 bg-primary-80 dark:bg-primary-30 rounded text-xs">Esc</kbd> to exit
+        </span>
+      </div>
+      <span id="filter-count" class="text-xs text-primary-40 dark:text-primary-60"></span>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -398,14 +449,21 @@
     </div>
 
     <!-- Storage Information -->
-    <% if (systemData.storage && systemData.storage.length > 0) { %>
+    <% 
+    // Filter out drives with 0 or very small capacity (< 1GB)
+    const validStorage = systemData.storage ? systemData.storage.filter(drive => drive.size > 0) : [];
+    %>
+    <% if (validStorage.length > 0) { %>
     <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 mb-8 hover:shadow-md3-3 transition-all duration-300">
       <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
         <span class="material-icons mr-3">hard_drive</span>
         Storage
+        <span class="ml-auto text-sm font-normal text-neutral-50 dark:text-neutral-60">
+          <%= validStorage.length %> drive<%= validStorage.length !== 1 ? 's' : '' %>
+        </span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="storage-grid">
-        <% systemData.storage.forEach(drive => { %>
+        <% validStorage.forEach(drive => { %>
         <div class="p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl">
           <div class="flex justify-between items-center mb-3">
             <span class="font-medium text-neutral-10 dark:text-neutral-90"><%= drive.fs %></span>
@@ -451,6 +509,7 @@
           class="app-card p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20"
           onclick="openApplication('<%= app.url %>')"
           data-index="<%= index %>"
+          data-name="<%= app.name.toLowerCase() %>"
           title="<%= app.description || app.name %>"
         >
           <div class="text-center">
@@ -471,6 +530,13 @@
         </button>
         <% }); %>
       </div>
+
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-12">
+        <span class="material-icons text-neutral-60 text-6xl mb-4">search_off</span>
+        <h3 class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2">No Applications Found</h3>
+        <p class="text-neutral-50 dark:text-neutral-60">Try a different search term or clear the filter.</p>
+      </div>
       <% } %>
     </div>
   </main>
@@ -482,12 +548,17 @@
     </button>
     
     <!-- Tooltip -->
-    <div class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[150px]">
+    <div class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[200px]">
       <div class="space-y-1 text-xs">
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">T</kbd> Theme</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">R</kbd> Refresh</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">L</kbd> Logout</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">1-9</kbd> Apps</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+T</kbd> Theme</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+R</kbd> Refresh</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+L</kbd> Logout</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+F</kbd> Search</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+1-9</kbd> Apps</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">A-Z</kbd> Filter apps</div>
+        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Esc</kbd> Clear filter</div>
+        <hr class="border-neutral-variant-30 dark:border-neutral-variant-60 my-2">
+        <div class="text-neutral-variant-40 dark:text-neutral-variant-70">Auto-refresh: <%= Math.floor(refreshInterval / 1000) %>s</div>
       </div>
     </div>
   </div>
@@ -496,6 +567,17 @@
     // System data refresh interval
     const REFRESH_INTERVAL = <%= refreshInterval %>;
     let refreshTimer;
+    let isRefreshing = false;
+
+    // Application filtering
+    let allApps = [];
+    let searchMode = false;
+    let currentFilter = '';
+
+    // Elements
+    const refreshBtn = document.getElementById('refresh-btn');
+    const refreshIcon = document.getElementById('refresh-icon');
+    const lastUpdated = document.getElementById('last-updated');
 
     // Theme management
     const themeToggle = document.getElementById('theme-toggle');
@@ -518,6 +600,83 @@
 
     themeToggle.addEventListener('click', toggleTheme);
 
+    // Search functionality
+    const searchContainer = document.getElementById('search-container');
+    const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear');
+    const searchToggle = document.getElementById('search-toggle');
+    const searchStatus = document.getElementById('search-status');
+    const filterCount = document.getElementById('filter-count');
+    const applicationsGrid = document.getElementById('applications-grid');
+    const noResults = document.getElementById('no-results');
+    const appCount = document.getElementById('app-count');
+
+    // Initialize applications array
+    function initializeApps() {
+      allApps = Array.from(document.querySelectorAll('.app-card')).map(card => ({
+        element: card,
+        name: card.dataset.name,
+        index: parseInt(card.dataset.index)
+      }));
+    }
+
+    function toggleSearchMode() {
+      searchMode = !searchMode;
+      if (searchMode) {
+        searchContainer.classList.remove('hidden');
+        searchStatus.classList.remove('hidden');
+        searchInput.focus();
+      } else {
+        searchContainer.classList.add('hidden');
+        searchStatus.classList.add('hidden');
+        clearFilter();
+      }
+    }
+
+    function filterApplications(query) {
+      currentFilter = query.toLowerCase();
+      let visibleCount = 0;
+
+      allApps.forEach(app => {
+        const matches = currentFilter === '' || app.name.startsWith(currentFilter);
+        app.element.classList.toggle('hidden', !matches);
+        if (matches) visibleCount++;
+      });
+
+      // Update UI
+      const hasResults = visibleCount > 0;
+      noResults.classList.toggle('hidden', hasResults);
+      applicationsGrid.classList.toggle('hidden', !hasResults);
+      
+      if (currentFilter) {
+        filterCount.textContent = `${visibleCount} of ${allApps.length} apps shown`;
+      } else {
+        filterCount.textContent = '';
+      }
+    }
+
+    function clearFilter() {
+      currentFilter = '';
+      searchInput.value = '';
+      filterApplications('');
+    }
+
+    function startQuickFilter(letter) {
+      if (!searchMode) {
+        searchMode = true;
+        searchContainer.classList.remove('hidden');
+        searchStatus.classList.remove('hidden');
+      }
+      searchInput.value = letter;
+      filterApplications(letter);
+      searchInput.focus();
+    }
+
+    // Event listeners for search
+    searchToggle.addEventListener('click', toggleSearchMode);
+    searchInput.addEventListener('input', (e) => filterApplications(e.target.value));
+    searchClear.addEventListener('click', clearFilter);
+
     // Application functions
     function openApplication(url) {
       window.open(url, '_blank');
@@ -525,12 +684,40 @@
 
     // System data refresh
     async function refreshSystemData() {
+      if (isRefreshing) return; // Prevent multiple concurrent requests
+      
       try {
+        // Set refreshing state
+        isRefreshing = true;
+        refreshBtn.disabled = true;
+        refreshIcon.classList.add('animate-spin');
+        refreshBtn.title = 'Refreshing...';
+        
         const response = await fetch('/api/system');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         updateSystemDisplay(data);
+        
+        // Update last updated timestamp
+        const now = new Date();
+        lastUpdated.textContent = `Updated ${now.toLocaleTimeString()}`;
+        
       } catch (error) {
         console.error('Failed to refresh system data:', error);
+        // Show error state briefly
+        refreshIcon.textContent = 'error';
+        setTimeout(() => {
+          refreshIcon.textContent = 'refresh';
+        }, 2000);
+      } finally {
+        // Reset refreshing state
+        isRefreshing = false;
+        refreshBtn.disabled = false;
+        refreshIcon.classList.remove('animate-spin');
+        refreshBtn.title = 'Refresh data (Ctrl+R)';
       }
     }
 
@@ -560,17 +747,10 @@
         }`;
       }
 
-      // Update Power
-      if (data.power && data.power.available && document.getElementById('power-usage')) {
-        document.getElementById('power-usage').textContent = `${data.power.estimatedWatts}W`;
-        document.getElementById('power-bar').style.width = `${Math.min(data.power.estimatedWatts, 100)}%`;
-      }
-
       // Update Battery (if available)
       if (data.battery && data.battery.available && document.getElementById('battery-level')) {
         document.getElementById('battery-level').textContent = `${data.battery.percentage}%`;
-
-        document.getElementById('battery-status').textContent = /*data.battery.status + */
+        document.getElementById('battery-status').textContent = 
           (data.battery.timeRemaining ? `${data.battery.timeRemaining}` : data.battery.status);
         document.getElementById('battery-bar').style.width = `${data.battery.percentage}%`;
         
@@ -598,37 +778,76 @@
     // Keyboard shortcuts
     document.addEventListener('keydown', function(e) {
       // Only handle shortcuts if not in an input field
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-      switch(e.key.toLowerCase()) {
-        case 't':
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.key === 'Escape') {
           e.preventDefault();
-          toggleTheme();
-          break;
-        case 'r':
-          e.preventDefault();
-          refreshSystemData();
-          break;
-        case 'l':
-          e.preventDefault();
-          window.location.href = '/logout';
-          break;
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-          e.preventDefault();
-          const appIndex = parseInt(e.key) - 1;
-          const appCard = document.querySelector(`[data-index="${appIndex}"]`);
-          if (appCard) {
-            appCard.click();
+          if (searchMode) {
+            searchInput.blur();
+            toggleSearchMode();
           }
-          break;
+        }
+        return;
+      }
+
+      // CTRL key combinations
+      if (e.ctrlKey) {
+        switch(e.key.toLowerCase()) {
+          case 't':
+            e.preventDefault();
+            toggleTheme();
+            break;
+          case 'r':
+            e.preventDefault();
+            if (!isRefreshing) {
+              refreshSystemData();
+            }
+            break;
+          case 'l':
+            e.preventDefault();
+            window.location.href = '/logout';
+            break;
+          case 'f':
+            e.preventDefault();
+            toggleSearchMode();
+            break;
+          case '1':
+          case '2':
+          case '3':
+          case '4':
+          case '5':
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+            e.preventDefault();
+            const appIndex = parseInt(e.key) - 1;
+            const appCard = document.querySelector(`[data-index="${appIndex}"]`);
+            if (appCard && !appCard.classList.contains('hidden')) {
+              appCard.click();
+            }
+            break;
+        }
+      } else {
+        // Regular letter keys for quick filtering
+        if (e.key.match(/^[a-zA-Z]$/)) {
+          e.preventDefault();
+          startQuickFilter(e.key.toLowerCase());
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          if (searchMode) {
+            toggleSearchMode();
+          }
+        }
+      }
+    });
+
+    // Page visibility handling
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        stopAutoRefresh();
+      } else {
+        startAutoRefresh();
+        refreshSystemData(); // Immediate refresh when page becomes visible
       }
     });
 
@@ -643,20 +862,21 @@
       }
     }
 
-    // Page visibility handling
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        stopAutoRefresh();
-      } else {
-        startAutoRefresh();
-        refreshSystemData(); // Immediate refresh when page becomes visible
-      }
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeApps();
+      startAutoRefresh();
+      
+      // Enable refresh button after page loads
+      refreshBtn.disabled = false;
+      
+      // Initial refresh after a short delay to show the loading state
+      setTimeout(() => {
+        refreshSystemData();
+      }, 500);
     });
 
-    // Initialize auto-refresh
-    startAutoRefresh();
-
-    console.log('🚀 Octagon Launcher Dashboard loaded with Material Design 3');
+    console.log('🚀 Octagon Launcher Dashboard loaded with enhanced search and CTRL shortcuts');
   </script>
 </body>
 </html>
