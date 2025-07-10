@@ -199,24 +199,36 @@ async function getBatteryInfo() {
   return { available: false };
 }
 
-// Get power consumption information
+// Get power consumption information using upower
 async function getPowerInfo() {
   try {
-    // Try to get power consumption data
-    const powerData = await si.powerShellGetUserOutput("powercfg /energy");
-    // This is a placeholder - actual power consumption is hardware-dependent
-    // On Linux, you might try reading from /sys/class/power_supply/ or using powertop
+    // Get battery power consumption using upower
+    const { stdout } = await execAsync(
+      "upower -i $(upower -e | grep 'BAT') | grep 'energy-rate'"
+    );
 
-    // For now, we'll estimate based on CPU usage (very rough approximation)
-    const cpu = await si.currentLoad();
-    const estimatedWatts = Math.round(20 + cpu.currentLoad * 0.8); // Base 20W + load-based
+    if (stdout.trim()) {
+      // Parse the energy rate from output like "    energy-rate:         17.2026 W"
+      const powerMatch = stdout.match(/energy-rate:\s*([\d.]+)\s*W/);
 
-    return {
-      available: true,
-      estimatedWatts,
-      note: "Estimated based on CPU usage",
-    };
+      if (powerMatch) {
+        const watts = parseFloat(powerMatch[1]);
+        const monthlyKwh = (watts * 720) / 1000; // Energy (kWh) = (Power in Watts × 720) ÷ 1000
+
+        return {
+          available: true,
+          watts: Math.round(watts * 100) / 100, // Round to 2 decimal places
+          monthlyKwh: Math.round(monthlyKwh * 100) / 100, // Round to 2 decimal places
+          source: "upower",
+        };
+      }
+    }
+
+    // Fallback: try alternative methods or estimation
+    console.log("Power consumption data not available via upower");
+    return { available: false };
   } catch (error) {
+    console.log("Power consumption info not available:", error.message);
     return { available: false };
   }
 }

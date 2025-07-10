@@ -1,951 +1,1283 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Octagon Launcher - Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            'material': ['Roboto', 'system-ui', 'sans-serif'],
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Octagon Launcher - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              material: ["Roboto", "system-ui", "sans-serif"],
+            },
+            colors: {
+              // Material Design 3 color tokens
+              primary: {
+                0: "#000000",
+                10: "#001c3b",
+                20: "#002f5f",
+                25: "#003a73",
+                30: "#004586",
+                35: "#0051a0",
+                40: "#005db4",
+                50: "#0075dc",
+                60: "#3f90ff",
+                70: "#79acff",
+                80: "#aac7ff",
+                90: "#d6e3ff",
+                95: "#ecf0ff",
+                98: "#f8f9ff",
+                99: "#fdfbff",
+                100: "#ffffff",
+              },
+              secondary: {
+                0: "#000000",
+                10: "#171c2c",
+                20: "#2c3042",
+                25: "#37394d",
+                30: "#424458",
+                35: "#4e4f64",
+                40: "#5a5b70",
+                50: "#73738a",
+                60: "#8d8ca4",
+                70: "#a8a6bf",
+                80: "#c4c1da",
+                90: "#e0ddf6",
+                95: "#eeebff",
+                98: "#faf8ff",
+                99: "#fefbff",
+                100: "#ffffff",
+              },
+              tertiary: {
+                0: "#000000",
+                10: "#2a1430",
+                20: "#402946",
+                25: "#4c3051",
+                30: "#58375d",
+                35: "#643e68",
+                40: "#714574",
+                50: "#8b5e8a",
+                60: "#a677a0",
+                70: "#c191b7",
+                80: "#ddabce",
+                90: "#fac6e6",
+                95: "#fde2f4",
+                98: "#fff7fb",
+                99: "#fffbff",
+                100: "#ffffff",
+              },
+              error: {
+                0: "#000000",
+                10: "#410e0b",
+                20: "#601410",
+                25: "#6f1c16",
+                30: "#7e251c",
+                35: "#8d2e22",
+                40: "#9c3729",
+                50: "#bb4a37",
+                60: "#dc5e46",
+                70: "#fe7256",
+                80: "#ff8a65",
+                90: "#ffb4ab",
+                95: "#ffcdd2",
+                98: "#fff4f3",
+                99: "#fffbff",
+                100: "#ffffff",
+              },
+              neutral: {
+                0: "#000000",
+                4: "#0f0d13",
+                6: "#141218",
+                10: "#1c1b1f",
+                12: "#201f23",
+                17: "#2b2930",
+                20: "#313033",
+                22: "#35343a",
+                24: "#3a3841",
+                25: "#3c3b42",
+                30: "#48464c",
+                35: "#545258",
+                40: "#605d64",
+                50: "#797680",
+                60: "#938f99",
+                70: "#aea9b4",
+                80: "#cac4d0",
+                87: "#e0d9e5",
+                90: "#e6e0e9",
+                92: "#ece6f0",
+                94: "#f3edf7",
+                95: "#f7f2fa",
+                96: "#faf4f9",
+                98: "#fef7ff",
+                99: "#fffbfe",
+                100: "#ffffff",
+              },
+              "neutral-variant": {
+                0: "#000000",
+                10: "#1d1a22",
+                20: "#322f37",
+                25: "#3e3a42",
+                30: "#49454f",
+                35: "#55515c",
+                40: "#615d68",
+                50: "#7a7581",
+                60: "#948f9b",
+                70: "#afa9b6",
+                80: "#cbc4d1",
+                90: "#e7e0ec",
+                95: "#f5eefa",
+                98: "#fef7ff",
+                99: "#fffbfe",
+                100: "#ffffff",
+              },
+              success: {
+                0: "#000000",
+                10: "#002106",
+                20: "#00390a",
+                25: "#004212",
+                30: "#005319",
+                35: "#006421",
+                40: "#007628",
+                50: "#299537",
+                60: "#40b046",
+                70: "#5bcc57",
+                80: "#77e96a",
+                90: "#94ff8c",
+                95: "#c6ffbe",
+                98: "#f0fff0",
+                99: "#f8fff8",
+                100: "#ffffff",
+              },
+              warning: {
+                0: "#000000",
+                10: "#261900",
+                20: "#402d00",
+                25: "#4f3800",
+                30: "#5f4100",
+                35: "#6f4b00",
+                40: "#7f5500",
+                50: "#a06b00",
+                60: "#c28400",
+                70: "#e49d00",
+                80: "#ffb734",
+                90: "#ffd15c",
+                95: "#ffe9a0",
+                98: "#fff5d6",
+                99: "#fffbff",
+                100: "#ffffff",
+              },
+            },
+            boxShadow: {
+              "md3-1":
+                "0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)",
+              "md3-2":
+                "0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)",
+              "md3-3":
+                "0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)",
+              "md3-4":
+                "0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)",
+              "md3-5":
+                "0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)",
+            },
+            animation: {
+              spin: "spin 1s linear infinite",
+            },
           },
-          colors: {
-            // Material Design 3 color tokens
-            primary: {
-              0: '#000000',
-              10: '#001c3b',
-              20: '#002f5f',
-              25: '#003a73',
-              30: '#004586',
-              35: '#0051a0',
-              40: '#005db4',
-              50: '#0075dc',
-              60: '#3f90ff',
-              70: '#79acff',
-              80: '#aac7ff',
-              90: '#d6e3ff',
-              95: '#ecf0ff',
-              98: '#f8f9ff',
-              99: '#fdfbff',
-              100: '#ffffff'
-            },
-            secondary: {
-              0: '#000000',
-              10: '#171c2c',
-              20: '#2c3042',
-              25: '#37394d',
-              30: '#424458',
-              35: '#4e4f64',
-              40: '#5a5b70',
-              50: '#73738a',
-              60: '#8d8ca4',
-              70: '#a8a6bf',
-              80: '#c4c1da',
-              90: '#e0ddf6',
-              95: '#eeebff',
-              98: '#faf8ff',
-              99: '#fefbff',
-              100: '#ffffff'
-            },
-            tertiary: {
-              0: '#000000',
-              10: '#2a1430',
-              20: '#402946',
-              25: '#4c3051',
-              30: '#58375d',
-              35: '#643e68',
-              40: '#714574',
-              50: '#8b5e8a',
-              60: '#a677a0',
-              70: '#c191b7',
-              80: '#ddabce',
-              90: '#fac6e6',
-              95: '#fde2f4',
-              98: '#fff7fb',
-              99: '#fffbff',
-              100: '#ffffff'
-            },
-            error: {
-              0: '#000000',
-              10: '#410e0b',
-              20: '#601410',
-              25: '#6f1c16',
-              30: '#7e251c',
-              35: '#8d2e22',
-              40: '#9c3729',
-              50: '#bb4a37',
-              60: '#dc5e46',
-              70: '#fe7256',
-              80: '#ff8a65',
-              90: '#ffb4ab',
-              95: '#ffcdd2',
-              98: '#fff4f3',
-              99: '#fffbff',
-              100: '#ffffff'
-            },
-            neutral: {
-              0: '#000000',
-              4: '#0f0d13',
-              6: '#141218',
-              10: '#1c1b1f',
-              12: '#201f23',
-              17: '#2b2930',
-              20: '#313033',
-              22: '#35343a',
-              24: '#3a3841',
-              25: '#3c3b42',
-              30: '#48464c',
-              35: '#545258',
-              40: '#605d64',
-              50: '#797680',
-              60: '#938f99',
-              70: '#aea9b4',
-              80: '#cac4d0',
-              87: '#e0d9e5',
-              90: '#e6e0e9',
-              92: '#ece6f0',
-              94: '#f3edf7',
-              95: '#f7f2fa',
-              96: '#faf4f9',
-              98: '#fef7ff',
-              99: '#fffbfe',
-              100: '#ffffff'
-            },
-            'neutral-variant': {
-              0: '#000000',
-              10: '#1d1a22',
-              20: '#322f37',
-              25: '#3e3a42',
-              30: '#49454f',
-              35: '#55515c',
-              40: '#615d68',
-              50: '#7a7581',
-              60: '#948f9b',
-              70: '#afa9b6',
-              80: '#cbc4d1',
-              90: '#e7e0ec',
-              95: '#f5eefa',
-              98: '#fef7ff',
-              99: '#fffbfe',
-              100: '#ffffff'
-            },
-            success: {
-              0: '#000000',
-              10: '#002106',
-              20: '#00390a',
-              25: '#004212',
-              30: '#005319',
-              35: '#006421',
-              40: '#007628',
-              50: '#299537',
-              60: '#40b046',
-              70: '#5bcc57',
-              80: '#77e96a',
-              90: '#94ff8c',
-              95: '#c6ffbe',
-              98: '#f0fff0',
-              99: '#f8fff8',
-              100: '#ffffff'
-            },
-            warning: {
-              0: '#000000',
-              10: '#261900',
-              20: '#402d00',
-              25: '#4f3800',
-              30: '#5f4100',
-              35: '#6f4b00',
-              40: '#7f5500',
-              50: '#a06b00',
-              60: '#c28400',
-              70: '#e49d00',
-              80: '#ffb734',
-              90: '#ffd15c',
-              95: '#ffe9a0',
-              98: '#fff5d6',
-              99: '#fffbff',
-              100: '#ffffff'
-            }
-          },
-          boxShadow: {
-            'md3-1': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)',
-            'md3-2': '0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15)',
-            'md3-3': '0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15)',
-            'md3-4': '0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15)',
-            'md3-5': '0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15)'
-          },
-          animation: {
-            'spin': 'spin 1s linear infinite'
-          }
-        }
-      }
-    }
-  </script>
-</head>
-<body class="min-h-screen bg-neutral-98 dark:bg-neutral-6 font-material">
-  <!-- Header -->
-  <header class="bg-neutral-99 dark:bg-neutral-10 border-b border-neutral-variant-90 dark:border-neutral-variant-30 sticky top-0 z-50 shadow-md3-1">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <!-- Logo and Title -->
-        <div class="flex items-center space-x-4">
-          <div class="w-10 h-10 bg-primary-40 rounded-full flex items-center justify-center shadow-md3-1">
-            <span class="material-icons text-primary-100 text-xl">dashboard</span>
-          </div>
-          <div>
-            <h1 class="text-xl font-medium text-neutral-10 dark:text-neutral-90">Octagon Launcher</h1>
-            <div class="flex items-center space-x-4">
-              <p class="text-xs text-neutral-50 dark:text-neutral-60" id="hostname"><%= systemData.os?.hostname || 'Server' %></p>
-              <div class="flex items-center space-x-1">
-                <span class="material-icons text-neutral-variant-50 dark:text-neutral-variant-60 text-sm">schedule</span>
-                <p class="text-xs text-neutral-50 dark:text-neutral-60" id="last-updated">
-                  Updated <%= new Date(systemData.lastUpdate || Date.now()).toLocaleTimeString() %>
+        },
+      };
+    </script>
+  </head>
+  <body class="min-h-screen bg-neutral-98 dark:bg-neutral-6 font-material">
+    <!-- Header -->
+    <header
+      class="bg-neutral-99 dark:bg-neutral-10 border-b border-neutral-variant-90 dark:border-neutral-variant-30 sticky top-0 z-50 shadow-md3-1"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo and Title -->
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-10 h-10 bg-primary-40 rounded-full flex items-center justify-center shadow-md3-1"
+            >
+              <span class="material-icons text-primary-100 text-xl"
+                >dashboard</span
+              >
+            </div>
+            <div>
+              <h1
+                class="text-xl font-medium text-neutral-10 dark:text-neutral-90"
+              >
+                Octagon Launcher
+              </h1>
+              <div class="flex items-center space-x-4">
+                <p
+                  class="text-xs text-neutral-50 dark:text-neutral-60"
+                  id="hostname"
+                >
+                  <%= systemData.os?.hostname || 'Server' %>
                 </p>
+                <div class="flex items-center space-x-1">
+                  <span
+                    class="material-icons text-neutral-variant-50 dark:text-neutral-variant-60 text-sm"
+                    >schedule</span
+                  >
+                  <p
+                    class="text-xs text-neutral-50 dark:text-neutral-60"
+                    id="last-updated"
+                  >
+                    Updated <%= new Date(systemData.lastUpdate ||
+                    Date.now()).toLocaleTimeString() %>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Search Input (Hidden by default) -->
-        <div class="flex-1 max-w-md mx-8">
-          <div id="search-container" class="relative hidden">
-            <input 
-              type="text" 
-              id="search-input"
-              placeholder="Search applications..."
-              class="w-full px-4 py-2 pl-10 pr-10 border border-neutral-variant-50 dark:border-neutral-variant-60 rounded-full bg-neutral-variant-95 dark:bg-neutral-variant-20 text-neutral-10 dark:text-neutral-90 focus:border-primary-40 focus:outline-none focus:ring-1 focus:ring-primary-40 transition-all duration-200"
+          <!-- Search Input (Hidden by default) -->
+          <div class="flex-1 max-w-md mx-8">
+            <div id="search-container" class="relative hidden">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search applications..."
+                class="w-full px-4 py-2 pl-10 pr-10 border border-neutral-variant-50 dark:border-neutral-variant-60 rounded-full bg-neutral-variant-95 dark:bg-neutral-variant-20 text-neutral-10 dark:text-neutral-90 focus:border-primary-40 focus:outline-none focus:ring-1 focus:ring-primary-40 transition-all duration-200"
+              />
+              <span
+                class="material-icons absolute left-3 top-2.5 text-neutral-variant-50 text-lg"
+                >search</span
+              >
+              <button
+                id="search-clear"
+                class="material-icons absolute right-3 top-2.5 text-neutral-variant-50 hover:text-neutral-variant-30 text-lg transition-colors cursor-pointer"
+              >
+                close
+              </button>
+            </div>
+          </div>
+          <!-- Controls -->
+          <div class="flex items-center space-x-3">
+            <!-- Search Toggle -->
+            <button
+              id="search-toggle"
+              class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
+              title="Search apps (S)"
             >
-            <span class="material-icons absolute left-3 top-2.5 text-neutral-variant-50 text-lg">search</span>
-            <button 
-              id="search-clear" 
-              class="material-icons absolute right-3 top-2.5 text-neutral-variant-50 hover:text-neutral-variant-30 text-lg transition-colors cursor-pointer"
-            >close</button>
+              <span
+                class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl"
+                >search</span
+              >
+            </button>
+            <!-- Theme Toggle -->
+            <button
+              id="theme-toggle"
+              class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
+              title="Toggle theme (Ctrl+T)"
+            >
+              <span
+                class="material-icons text-secondary-10 dark:text-secondary-90 text-xl"
+                id="theme-icon"
+                >dark_mode</span
+              >
+            </button>
+            <!-- Refresh Button -->
+            <button
+              id="refresh-btn"
+              class="p-2.5 bg-success-90 dark:bg-success-20 hover:bg-success-80 dark:hover:bg-success-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12 disabled:cursor-not-allowed"
+              title="Refresh data (Ctrl+R)"
+              disabled
+            >
+              <span
+                class="material-icons text-success-10 dark:text-success-90 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-xl transition-all duration-200"
+                id="refresh-icon"
+                >refresh</span
+              >
+            </button>
+            <!-- Logout -->
+            <button
+              onclick="window.location.href='/logout'"
+              class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
+              title="Logout (Ctrl+L)"
+            >
+              <span
+                class="material-icons text-error-10 dark:text-error-90 text-xl"
+                >logout</span
+              >
+            </button>
           </div>
         </div>
-        <!-- Controls -->
-        <div class="flex items-center space-x-3">
-          <!-- Search Toggle -->
-          <button 
-            id="search-toggle"
-            class="p-2.5 bg-tertiary-90 dark:bg-tertiary-20 hover:bg-tertiary-80 dark:hover:bg-tertiary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Search apps (S)"
+      </div>
+    </header>
+    <!-- Search Status Bar -->
+    <div
+      id="search-status"
+      class="hidden bg-primary-95 dark:bg-primary-10 border-b border-primary-80 dark:border-primary-30 px-4 py-2"
+    >
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span
+            class="material-icons text-primary-30 dark:text-primary-70 text-sm"
+            >filter_list</span
           >
-            <span class="material-icons text-tertiary-10 dark:text-tertiary-90 text-xl">search</span>
-          </button>
-          <!-- Theme Toggle -->
-          <button 
-            id="theme-toggle"
-            class="p-2.5 bg-secondary-90 dark:bg-secondary-20 hover:bg-secondary-80 dark:hover:bg-secondary-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Toggle theme (Ctrl+T)"
-          >
-            <span class="material-icons text-secondary-10 dark:text-secondary-90 text-xl" id="theme-icon">dark_mode</span>
-          </button>
-          <!-- Refresh Button -->
-          <button 
-            id="refresh-btn"
-            class="p-2.5 bg-success-90 dark:bg-success-20 hover:bg-success-80 dark:hover:bg-success-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12 disabled:cursor-not-allowed"
-            title="Refresh data (Ctrl+R)"
-            disabled
-          >
-            <span class="material-icons text-success-10 dark:text-success-90 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-xl transition-all duration-200" id="refresh-icon">refresh</span>
-          </button>
-          <!-- Logout -->
-          <button 
-            onclick="window.location.href='/logout'"
-            class="p-2.5 bg-error-90 dark:bg-error-20 hover:bg-error-80 dark:hover:bg-error-30 rounded-full transition-all duration-200 shadow-md3-1 w-12 h-12"
-            title="Logout (Ctrl+L)"
-          >
-            <span class="material-icons text-error-10 dark:text-error-90 text-xl">logout</span>
-          </button>
+          <span class="text-sm text-primary-20 dark:text-primary-80">
+            Search mode active - Type to filter apps,
+            <kbd class="px-1 bg-primary-80 dark:bg-primary-30 rounded text-xs"
+              >Esc</kbd
+            >
+            to exit
+          </span>
         </div>
+        <span
+          id="filter-count"
+          class="text-xs text-primary-40 dark:text-primary-60"
+        ></span>
       </div>
     </div>
-  </header>
-  <!-- Search Status Bar -->
-  <div id="search-status" class="hidden bg-primary-95 dark:bg-primary-10 border-b border-primary-80 dark:border-primary-30 px-4 py-2">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="material-icons text-primary-30 dark:text-primary-70 text-sm">filter_list</span>
-        <span class="text-sm text-primary-20 dark:text-primary-80">
-          Search mode active - Type to filter apps, <kbd class="px-1 bg-primary-80 dark:bg-primary-30 rounded text-xs">Esc</kbd> to exit
-        </span>
-      </div>
-      <span id="filter-count" class="text-xs text-primary-40 dark:text-primary-60"></span>
-    </div>
-  </div>
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- System Information Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6 mb-8">
-      <!-- CPU Usage Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
-        <!-- Header: Icon + Title -->
-        <div class="flex items-center space-x-3 mb-3">
-          <div class="w-10 h-10 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span class="material-icons text-primary-10 dark:text-primary-80 text-lg">memory</span>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">CPU</h3>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60"><%= systemData.cpu?.cores || 0 %> cores</p>
-          </div>
-        </div>
-        
-        <!-- Info row: Description + Value -->
-        <div class="text-right __value">
-          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-usage">
-            <%= systemData.cpu?.usage || 0 %>%
-          </span>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-          <div 
-            class="bg-primary-40 h-2 rounded-full transition-all duration-500" 
-            style="width: <%= systemData.cpu?.usage || 0 %>%"
-            id="cpu-bar"
-          ></div>
-        </div>
-      </div>
-      <!-- Memory Usage Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
-        <!-- Header: Icon + Title -->
-        <div class="flex items-center space-x-3 mb-3">
-          <div class="w-10 h-10 bg-success-90 dark:bg-success-20 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span class="material-icons text-success-10 dark:text-success-80 text-lg">storage</span>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Memory</h3>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="memory-info">
-              <%= systemData.memory?.used || 0 %>GB / <%= systemData.memory?.total || 0 %>GB
-            </p>
-          </div>
-        </div>
-        
-        <!-- Info row: Description + Value -->
-        <div class="text-right __value">
-          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="memory-usage">
-            <%= systemData.memory?.percentage || 0 %>%
-          </span>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-          <div 
-            class="bg-success-40 h-2 rounded-full transition-all duration-500" 
-            style="width: <%= systemData.memory?.percentage || 0 %>%"
-            id="memory-bar"
-          ></div>
-        </div>
-      </div>
-      <!-- Temperature Card -->
-      <% if (systemData.temperature?.available) { %>
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
-        <!-- Header: Icon + Title -->
-        <div class="flex items-center space-x-3 mb-3">
-          <div class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span class="material-icons text-warning-10 dark:text-warning-80 text-lg">thermostat</span>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Temperature</h3>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60">CPU core</p>
-          </div>
-        </div>
-        
-        <!-- Info row: Description + Value -->
-        <div class="text-right __value">
-          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="cpu-temp">
-            <%= systemData.temperature.cpu %>°C
-          </span>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-          <div 
-            class="h-2 rounded-full transition-all duration-500 <%= systemData.temperature.cpu > 80 ? 'bg-error-40' : systemData.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40' %>" 
-            style="width: <%= Math.min(systemData.temperature.cpu, 100) %>%"
-            id="temp-bar"
-          ></div>
-        </div>
-      </div>
-      <% } %>
-      <!-- Battery Card (if available) -->
-      <% if (systemData.battery?.available) { %>
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
-        <!-- Header: Icon + Title -->
-        <div class="flex items-center space-x-3 mb-3">
-          <div class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span class="material-icons text-warning-10 dark:text-warning-80 text-lg" id="battery-icon">
-              <%= systemData.battery.isCharging ? 'battery_charging_full' : 'battery_std' %>
-            </span>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Battery</h3>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60" id="battery-status">
-              <%= systemData.battery.status %>
-            </p>
-          </div>
-        </div>
-        
-        <!-- Info row: Description + Value -->
-        <div class="text-right __value">
-          <span class="text-2xl font-medium text-neutral-10 dark:text-neutral-90" id="battery-level">
-            <%= systemData.battery.percentage %>%
-          </span>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-          <div 
-            class="h-2 rounded-full transition-all duration-500 <%= systemData.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40' %>" 
-            style="width: <%= systemData.battery.percentage %>%"
-            id="battery-bar"
-          ></div>
-        </div>
-      </div>
-      <% } %>
-      <!-- Uptime Card -->
-      <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between">
-        <!-- Header: Icon + Title -->
-        <div class="flex items-center space-x-3 mb-3">
-          <div class="w-10 h-10 bg-secondary-90 dark:bg-secondary-20 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <span class="material-icons text-secondary-10 dark:text-secondary-80 text-lg">schedule</span>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-base">Uptime</h3>
-            <p class="text-xs text-green-500 dark:text-green-300">Running</p>
-          </div>
-        </div>
-        
-        <!-- Info row: Description + Value -->
-        <div class="text-right __value">
-          <div class="text-right" id="uptime-display">
-            <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">
-              <%= systemData.uptime?.days || 0 %>d
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- System Information Grid -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6 mb-8"
+      >
+        <!-- CPU Usage Card -->
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
+        >
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-primary-90 dark:bg-primary-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-primary-10 dark:text-primary-80 text-lg"
+                >memory</span
+              >
             </div>
-            <div class="text-xs text-neutral-50 dark:text-neutral-60">
-              <%= systemData.uptime?.hours || 0 %>h <%= systemData.uptime?.minutes || 0 %>m
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                CPU
+              </h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60">
+                <%= systemData.cpu?.cores || 0 %> cores
+              </p>
             </div>
           </div>
-        </div>
-        
-        <!-- Spacer instead of progress bar for uptime -->
-        <div class="h-2"></div>
-      </div>
-    </div>
-    <!-- Storage Information -->
-    <% 
-    // Filter out drives with 0 or very small capacity (< 1GB)
-    const validStorage = systemData.storage ? systemData.storage.filter(drive => drive.size > 0) : [];
-    %>
-    <% if (validStorage.length > 0) { %>
-    <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 mb-8 hover:shadow-md3-3 transition-all duration-300">
-      <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
-        <span class="material-icons mr-3">hard_drive</span>
-        Storage
-        <span class="ml-auto text-sm font-normal text-neutral-50 dark:text-neutral-60">
-          <%= validStorage.length %> drive<%= validStorage.length !== 1 ? 's' : '' %>
-        </span>
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="storage-grid">
-        <% validStorage.forEach(drive => { %>
-        <div class="p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl">
-          <div class="flex justify-between items-center mb-3">
-            <span class="font-medium text-neutral-10 dark:text-neutral-90"><%= drive.fs %></span>
-            <span class="text-sm text-neutral-50 dark:text-neutral-60">
-              <%= drive.used %>GB / <%= drive.size %>GB
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <span
+              class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              id="cpu-usage"
+            >
+              <%= systemData.cpu?.usage || 0 %>%
             </span>
           </div>
-          <div class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2">
-            <div 
-              class="bg-primary-40 h-2 rounded-full" 
-              style="width: <%= drive.percentage %>%"
+
+          <!-- Progress Bar -->
+          <div
+            class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+          >
+            <div
+              class="bg-primary-40 h-2 rounded-full transition-all duration-500"
+              style="width: <%= systemData.cpu?.usage || 0 %>%"
+              id="cpu-bar"
             ></div>
           </div>
-          <div class="text-xs text-neutral-50 dark:text-neutral-60 mt-2">
-            <%= drive.percentage %>% used
+        </div>
+        <!-- Memory Usage Card -->
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
+        >
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-success-90 dark:bg-success-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-success-10 dark:text-success-80 text-lg"
+                >storage</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                Memory
+              </h3>
+              <p
+                class="text-xs text-neutral-50 dark:text-neutral-60"
+                id="memory-info"
+              >
+                <%= systemData.memory?.used || 0 %>GB / <%=
+                systemData.memory?.total || 0 %>GB
+              </p>
+            </div>
+          </div>
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <span
+              class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              id="memory-usage"
+            >
+              <%= systemData.memory?.percentage || 0 %>%
+            </span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div
+            class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+          >
+            <div
+              class="bg-success-40 h-2 rounded-full transition-all duration-500"
+              style="width: <%= systemData.memory?.percentage || 0 %>%"
+              id="memory-bar"
+            ></div>
           </div>
         </div>
-        <% }); %>
-      </div>
-    </div>
-    <% } %>
-    <!-- Applications Grid -->
-    <div class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300">
-      <h2 class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center">
-        <span class="material-icons mr-3">apps</span>
-        Applications
-        <div class="ml-auto flex items-center space-x-3">
-          <span class="text-sm font-normal text-neutral-50 dark:text-neutral-60" id="app-count">
-            <%= applications.length %> apps
-          </span>
-          <button 
-            id="refresh-apps-btn"
-            class="p-2 bg-primary-90 dark:bg-primary-20 hover:bg-primary-80 dark:hover:bg-primary-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-xl transition-all duration-200 shadow-md3-1 w-9 h-9 disabled:cursor-not-allowed group flex items-center justify-center"
-            title="Refresh applications (Ctrl+Shift+R)"
-          >
-            <span class="material-icons text-primary-10 dark:text-primary-80 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-sm transition-all duration-200 group-hover:scale-110" id="refresh-apps-icon">refresh</span>
-          </button>
-        </div>
-      </h2>
-      
-      <% if (applications.length === 0) { %>
-      <div class="text-center py-12">
-        <span class="material-icons text-neutral-60 text-6xl mb-4">inventory_2</span>
-        <h3 class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2">No Applications</h3>
-        <p class="text-neutral-50 dark:text-neutral-60">Add applications to your JSON file to see them here.</p>
-      </div>
-      <% } else { %>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="applications-grid">
-        <% applications.forEach((app, index) => { %>
-        <button 
-          class="app-card p-6 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-3xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20 min-h-[140px] flex flex-col justify-between"
-          onclick="openApplication('<%= app.url %>')"
-          data-index="<%= index %>"
-          data-name="<%= app.name.toLowerCase() %>"
-          title="<%= app.description || app.name %>"
+        <!-- Temperature Card -->
+        <% if (systemData.temperature?.available) { %>
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
         >
-          <div class="text-center flex flex-col items-center">
-            <!-- Icon Container - Fixed size and perfectly centered -->
-            <div class="w-16 h-16 mx-auto mb-4 bg-primary-90 dark:bg-primary-20 rounded-3xl flex items-center justify-center group-hover:bg-primary-80 dark:group-hover:bg-primary-30 transition-colors duration-200 flex-shrink-0">
-              <span class="material-icons text-primary-10 dark:text-primary-80 text-2xl">
-                <%= app.icon || 'apps' %>
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-warning-10 dark:text-warning-80 text-lg"
+                >thermostat</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                Temperature
+              </h3>
+              <p class="text-xs text-neutral-50 dark:text-neutral-60">
+                CPU core
+              </p>
+            </div>
+          </div>
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <span
+              class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              id="cpu-temp"
+            >
+              <%= systemData.temperature.cpu %>°C
+            </span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div
+            class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+          >
+            <div
+              class="h-2 rounded-full transition-all duration-500 <%= systemData.temperature.cpu > 80 ? 'bg-error-40' : systemData.temperature.cpu > 60 ? 'bg-warning-50' : 'bg-success-40' %>"
+              style="width: <%= Math.min(systemData.temperature.cpu, 100) %>%"
+              id="temp-bar"
+            ></div>
+          </div>
+        </div>
+        <% } %>
+        <!-- Battery Card (if available) -->
+        <% if (systemData.battery?.available) { %>
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
+        >
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-warning-90 dark:bg-warning-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-warning-10 dark:text-warning-80 text-lg"
+                id="battery-icon"
+              >
+                <%= systemData.battery.isCharging ? 'battery_charging_full' :
+                'battery_std' %>
               </span>
             </div>
-            
-            <!-- App Name -->
-            <h3 class="font-medium text-neutral-10 dark:text-neutral-90 text-sm leading-tight mb-2 text-center">
-              <%= app.name %>
-            </h3>
-            
-            <!-- Description - Allow wrapping but limit height -->
-            <% if (app.description) { %>
-            <p class="text-xs text-neutral-50 dark:text-neutral-60 leading-relaxed text-center line-clamp-2 max-h-8 overflow-hidden">
-              <%= app.description %>
-            </p>
-            <% } %>
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                Battery
+              </h3>
+              <p
+                class="text-xs text-neutral-50 dark:text-neutral-60"
+                id="battery-status"
+              >
+                <%= systemData.battery.status %>
+              </p>
+            </div>
           </div>
-        </button>
-        <% }); %>
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <span
+              class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              id="battery-level"
+            >
+              <%= systemData.battery.percentage %>%
+            </span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div
+            class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+          >
+            <div
+              class="h-2 rounded-full transition-all duration-500 <%= systemData.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40' %>"
+              style="width: <%= systemData.battery.percentage %>%"
+              id="battery-bar"
+            ></div>
+          </div>
+        </div>
+        <% } %>
+        <!-- Power Consumption Card -->
+        <% if (systemData.power?.available) { %>
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
+        >
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-tertiary-90 dark:bg-tertiary-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-tertiary-10 dark:text-tertiary-80 text-lg"
+                >flash_on</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                Power
+              </h3>
+              <p
+                class="text-xs text-neutral-50 dark:text-neutral-60"
+                id="power-monthly"
+              >
+                ~<%= systemData.power.monthlyKwh %> units
+              </p>
+            </div>
+          </div>
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <span
+              class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              id="power-watts"
+            >
+              <%= systemData.power.watts %>W
+            </span>
+          </div>
+
+          <!-- Progress Bar (optional - showing relative power usage, max at 100W) -->
+          <div
+            class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+          >
+            <div
+              class="h-2 rounded-full transition-all duration-500 <%= systemData.power.watts > 50 ? 'bg-warning-50' : 'bg-tertiary-40' %>"
+              style="
+                width: <%= Math.min((systemData.power.watts / 100) * 100, 100)
+                  %>%;
+              "
+              id="power-bar"
+            ></div>
+          </div>
+        </div>
+        <% } %>
+        <!-- Uptime Card -->
+        <div
+          class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300 h-40 flex flex-col justify-between"
+        >
+          <!-- Header: Icon + Title -->
+          <div class="flex items-center space-x-3 mb-3">
+            <div
+              class="w-10 h-10 bg-secondary-90 dark:bg-secondary-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+            >
+              <span
+                class="material-icons text-secondary-10 dark:text-secondary-80 text-lg"
+                >schedule</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-base"
+              >
+                Uptime
+              </h3>
+              <p class="text-xs text-green-500 dark:text-green-300">Running</p>
+            </div>
+          </div>
+
+          <!-- Info row: Description + Value -->
+          <div class="text-right __value">
+            <div class="text-right" id="uptime-display">
+              <div
+                class="text-2xl font-medium text-neutral-10 dark:text-neutral-90"
+              >
+                <%= systemData.uptime?.days || 0 %>d
+              </div>
+              <div class="text-xs text-neutral-50 dark:text-neutral-60">
+                <%= systemData.uptime?.hours || 0 %>h <%=
+                systemData.uptime?.minutes || 0 %>m
+              </div>
+            </div>
+          </div>
+
+          <!-- Spacer instead of progress bar for uptime -->
+          <div class="h-2"></div>
+        </div>
       </div>
-      <!-- No Results Message -->
-      <div id="no-results" class="hidden text-center py-12">
-        <span class="material-icons text-neutral-60 text-6xl mb-4">search_off</span>
-        <h3 class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2">No Applications Found</h3>
-        <p class="text-neutral-50 dark:text-neutral-60">Try a different search term or clear the filter.</p>
+      <!-- Storage Information -->
+      <% // Filter out drives with 0 or very small capacity (< 1GB) const
+      validStorage = systemData.storage ? systemData.storage.filter(drive =>
+      drive.size > 0) : []; %> <% if (validStorage.length > 0) { %>
+      <div
+        class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 mb-8 hover:shadow-md3-3 transition-all duration-300"
+      >
+        <h2
+          class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center"
+        >
+          <span class="material-icons mr-3">hard_drive</span>
+          Storage
+          <span
+            class="ml-auto text-sm font-normal text-neutral-50 dark:text-neutral-60"
+          >
+            <%= validStorage.length %> drive<%= validStorage.length !== 1 ? 's'
+            : '' %>
+          </span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="storage-grid">
+          <% validStorage.forEach(drive => { %>
+          <div
+            class="p-4 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-2xl"
+          >
+            <div class="flex justify-between items-center mb-3">
+              <span class="font-medium text-neutral-10 dark:text-neutral-90"
+                ><%= drive.fs %></span
+              >
+              <span class="text-sm text-neutral-50 dark:text-neutral-60">
+                <%= drive.used %>GB / <%= drive.size %>GB
+              </span>
+            </div>
+            <div
+              class="w-full bg-neutral-variant-90 dark:bg-neutral-variant-30 rounded-full h-2"
+            >
+              <div
+                class="bg-primary-40 h-2 rounded-full"
+                style="width: <%= drive.percentage %>%"
+              ></div>
+            </div>
+            <div class="text-xs text-neutral-50 dark:text-neutral-60 mt-2">
+              <%= drive.percentage %>% used
+            </div>
+          </div>
+          <% }); %>
+        </div>
       </div>
       <% } %>
-    </div>
-  </main>
-  <!-- Floating Action Button (FAB) for shortcuts help -->
-  <div class="fixed bottom-6 right-6 bg-primary-40 w-12 h-12 flex items-center justify-center hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group">
-    <button class="p-4 text-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-40/20 rounded-full" title="Keyboard shortcuts">
-      <span class="material-icons text-xl">keyboard</span>
-    </button>
-    
-    <!-- Tooltip -->
-    <div class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[200px]">
-      <div class="space-y-1 text-xs">
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+T</kbd> Theme</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+R</kbd> Refresh</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+Shift+R</kbd> Refresh Apps</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+L</kbd> Logout</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+F</kbd> Search</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Ctrl+1-9</kbd> Apps</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">A-Z</kbd> Filter apps</div>
-        <div><kbd class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono">Esc</kbd> Clear filter</div>
-        <hr class="border-neutral-variant-30 dark:border-neutral-variant-60 my-2">
-        <div class="text-neutral-variant-40 dark:text-neutral-variant-70">Auto-refresh: <%= Math.floor(refreshInterval / 1000) %>s</div>
+      <!-- Applications Grid -->
+      <div
+        class="bg-neutral-99 dark:bg-neutral-10 rounded-3xl shadow-md3-2 p-6 hover:shadow-md3-3 transition-all duration-300"
+      >
+        <h2
+          class="text-xl font-medium text-neutral-10 dark:text-neutral-90 mb-6 flex items-center"
+        >
+          <span class="material-icons mr-3">apps</span>
+          Applications
+          <div class="ml-auto flex items-center space-x-3">
+            <span
+              class="text-sm font-normal text-neutral-50 dark:text-neutral-60"
+              id="app-count"
+            >
+              <%= applications.length %> apps
+            </span>
+            <button
+              id="refresh-apps-btn"
+              class="p-2 bg-primary-90 dark:bg-primary-20 hover:bg-primary-80 dark:hover:bg-primary-30 disabled:bg-neutral-variant-90 dark:disabled:bg-neutral-variant-30 disabled:hover:bg-neutral-variant-90 dark:disabled:hover:bg-neutral-variant-30 rounded-xl transition-all duration-200 shadow-md3-1 w-9 h-9 disabled:cursor-not-allowed group flex items-center justify-center"
+              title="Refresh applications (Ctrl+Shift+R)"
+            >
+              <span
+                class="material-icons text-primary-10 dark:text-primary-80 disabled:text-neutral-variant-50 dark:disabled:text-neutral-variant-60 text-sm transition-all duration-200 group-hover:scale-110"
+                id="refresh-apps-icon"
+                >refresh</span
+              >
+            </button>
+          </div>
+        </h2>
+
+        <% if (applications.length === 0) { %>
+        <div class="text-center py-12">
+          <span class="material-icons text-neutral-60 text-6xl mb-4"
+            >inventory_2</span
+          >
+          <h3
+            class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2"
+          >
+            No Applications
+          </h3>
+          <p class="text-neutral-50 dark:text-neutral-60">
+            Add applications to your JSON file to see them here.
+          </p>
+        </div>
+        <% } else { %>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6"
+          id="applications-grid"
+        >
+          <% applications.forEach((app, index) => { %>
+          <button
+            class="app-card p-6 bg-neutral-variant-95 dark:bg-neutral-variant-20 border border-neutral-variant-90 dark:border-neutral-variant-30 rounded-3xl hover:bg-neutral-variant-90 dark:hover:bg-neutral-variant-25 hover:shadow-md3-2 transition-all duration-200 transform hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary-40/20 min-h-[140px] flex flex-col justify-between"
+            onclick="openApplication('<%= app.url %>')"
+            data-index="<%= index %>"
+            data-name="<%= app.name.toLowerCase() %>"
+            title="<%= app.description || app.name %>"
+          >
+            <div class="text-center flex flex-col items-center">
+              <!-- Icon Container - Fixed size and perfectly centered -->
+              <div
+                class="w-16 h-16 mx-auto mb-4 bg-primary-90 dark:bg-primary-20 rounded-3xl flex items-center justify-center group-hover:bg-primary-80 dark:group-hover:bg-primary-30 transition-colors duration-200 flex-shrink-0"
+              >
+                <span
+                  class="material-icons text-primary-10 dark:text-primary-80 text-2xl"
+                >
+                  <%= app.icon || 'apps' %>
+                </span>
+              </div>
+
+              <!-- App Name -->
+              <h3
+                class="font-medium text-neutral-10 dark:text-neutral-90 text-sm leading-tight mb-2 text-center"
+              >
+                <%= app.name %>
+              </h3>
+
+              <!-- Description - Allow wrapping but limit height -->
+              <% if (app.description) { %>
+              <p
+                class="text-xs text-neutral-50 dark:text-neutral-60 leading-relaxed text-center line-clamp-2 max-h-8 overflow-hidden"
+              >
+                <%= app.description %>
+              </p>
+              <% } %>
+            </div>
+          </button>
+          <% }); %>
+        </div>
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <span class="material-icons text-neutral-60 text-6xl mb-4"
+            >search_off</span
+          >
+          <h3
+            class="text-lg font-medium text-neutral-10 dark:text-neutral-90 mb-2"
+          >
+            No Applications Found
+          </h3>
+          <p class="text-neutral-50 dark:text-neutral-60">
+            Try a different search term or clear the filter.
+          </p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+    <!-- Floating Action Button (FAB) for shortcuts help -->
+    <div
+      class="fixed bottom-6 right-6 bg-primary-40 w-12 h-12 flex items-center justify-center hover:bg-primary-30 rounded-full shadow-md3-3 hover:shadow-md3-4 transition-all duration-200 group"
+    >
+      <button
+        class="p-4 text-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-40/20 rounded-full"
+        title="Keyboard shortcuts"
+      >
+        <span class="material-icons text-xl">keyboard</span>
+      </button>
+
+      <!-- Tooltip -->
+      <div
+        class="absolute bottom-16 right-0 bg-neutral-10 dark:bg-neutral-90 text-neutral-90 dark:text-neutral-10 rounded-2xl p-3 shadow-md3-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none min-w-[200px]"
+      >
+        <div class="space-y-1 text-xs">
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+T</kbd
+            >
+            Theme
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+R</kbd
+            >
+            Refresh
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+Shift+R</kbd
+            >
+            Refresh Apps
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+L</kbd
+            >
+            Logout
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+F</kbd
+            >
+            Search
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Ctrl+1-9</kbd
+            >
+            Apps
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >A-Z</kbd
+            >
+            Filter apps
+          </div>
+          <div>
+            <kbd
+              class="px-1 bg-neutral-variant-30 dark:bg-neutral-variant-60 rounded text-xs font-mono"
+              >Esc</kbd
+            >
+            Clear filter
+          </div>
+          <hr
+            class="border-neutral-variant-30 dark:border-neutral-variant-60 my-2"
+          />
+          <div class="text-neutral-variant-40 dark:text-neutral-variant-70">
+            Auto-refresh: <%= Math.floor(refreshInterval / 1000) %>s
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Custom CSS for line clamping -->
-  <style>
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  </style>
-  <script>
-    // System data refresh interval
-    const REFRESH_INTERVAL = <%= refreshInterval %>;
-    let refreshTimer;
-    let isRefreshing = false;
-    let isRefreshingApps = false;
-
-    // Application filtering
-    let allApps = [];
-    let searchMode = false;
-    let currentFilter = '';
-
-    // Elements
-    const refreshBtn = document.getElementById('refresh-btn');
-    const refreshIcon = document.getElementById('refresh-icon');
-    const refreshAppsBtn = document.getElementById('refresh-apps-btn');
-    const refreshAppsIcon = document.getElementById('refresh-apps-icon');
-    const lastUpdated = document.getElementById('last-updated');
-
-    // Theme management
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const html = document.documentElement;
-
-    function toggleTheme() {
-      const isDark = html.classList.contains('dark');
-      html.classList.toggle('dark');
-      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    }
-
-    // Initialize theme from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      html.classList.toggle('dark', savedTheme === 'dark');
-      themeIcon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
-    }
-
-    themeToggle.addEventListener('click', toggleTheme);
-
-    // Search functionality
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.getElementById('search-input');
-    const searchClear = document.getElementById('search-clear');
-    const searchToggle = document.getElementById('search-toggle');
-    const searchStatus = document.getElementById('search-status');
-    const filterCount = document.getElementById('filter-count');
-    const applicationsGrid = document.getElementById('applications-grid');
-    const noResults = document.getElementById('no-results');
-    const appCount = document.getElementById('app-count');
-
-    // Initialize applications array
-    function initializeApps() {
-      allApps = Array.from(document.querySelectorAll('.app-card')).map(card => ({
-        element: card,
-        name: card.dataset.name,
-        index: parseInt(card.dataset.index)
-      }));
-    }
-
-    function toggleSearchMode() {
-      searchMode = !searchMode;
-      if (searchMode) {
-        searchContainer.classList.remove('hidden');
-        searchStatus.classList.remove('hidden');
-        searchInput.focus();
-      } else {
-        searchContainer.classList.add('hidden');
-        searchStatus.classList.add('hidden');
-        clearFilter();
+    <!-- Custom CSS for line clamping -->
+    <style>
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
-    }
+    </style>
+    <script>
+            // System data refresh interval
+            const REFRESH_INTERVAL = <%= refreshInterval %>;
+            let refreshTimer;
+            let isRefreshing = false;
+            let isRefreshingApps = false;
 
-    function filterApplications(query) {
-      currentFilter = query.toLowerCase();
-      let visibleCount = 0;
+            // Application filtering
+            let allApps = [];
+            let searchMode = false;
+            let currentFilter = '';
 
-      allApps.forEach(app => {
-        const matches = currentFilter === '' || app.name.startsWith(currentFilter);
-        app.element.classList.toggle('hidden', !matches);
-        if (matches) visibleCount++;
-      });
+            // Elements
+            const refreshBtn = document.getElementById('refresh-btn');
+            const refreshIcon = document.getElementById('refresh-icon');
+            const refreshAppsBtn = document.getElementById('refresh-apps-btn');
+            const refreshAppsIcon = document.getElementById('refresh-apps-icon');
+            const lastUpdated = document.getElementById('last-updated');
 
-      // Update UI
-      const hasResults = visibleCount > 0;
-      noResults.classList.toggle('hidden', hasResults);
-      applicationsGrid.classList.toggle('hidden', !hasResults);
-      
-      if (currentFilter) {
-        filterCount.textContent = `${visibleCount} of ${allApps.length} apps shown`;
-      } else {
-        filterCount.textContent = '';
-      }
-    }
+            // Theme management
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const html = document.documentElement;
 
-    function clearFilter() {
-      currentFilter = '';
-      searchInput.value = '';
-      filterApplications('');
-    }
+            function toggleTheme() {
+              const isDark = html.classList.contains('dark');
+              html.classList.toggle('dark');
+              themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+              localStorage.setItem('theme', isDark ? 'light' : 'dark');
+            }
 
-    function startQuickFilter(letter) {
-      if (!searchMode) {
-        searchMode = true;
-        searchContainer.classList.remove('hidden');
-        searchStatus.classList.remove('hidden');
-      }
-      searchInput.value = letter;
-      filterApplications(letter);
-      searchInput.focus();
-    }
+            // Initialize theme from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+              html.classList.toggle('dark', savedTheme === 'dark');
+              themeIcon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+            }
 
-    // Event listeners for search
-    searchToggle.addEventListener('click', toggleSearchMode);
-    searchInput.addEventListener('input', (e) => filterApplications(e.target.value));
-    searchClear.addEventListener('click', clearFilter);
+            themeToggle.addEventListener('click', toggleTheme);
 
-    // Application functions
-    function openApplication(url) {
-      window.open(url, '_blank');
-    }
+            // Search functionality
+            const searchContainer = document.getElementById('search-container');
+            const searchInput = document.getElementById('search-input');
+            const searchClear = document.getElementById('search-clear');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchStatus = document.getElementById('search-status');
+            const filterCount = document.getElementById('filter-count');
+            const applicationsGrid = document.getElementById('applications-grid');
+            const noResults = document.getElementById('no-results');
+            const appCount = document.getElementById('app-count');
 
-    // System data refresh
-    async function refreshSystemData() {
-      if (isRefreshing) return; // Prevent multiple concurrent requests
-      
-      try {
-        // Set refreshing state
-        isRefreshing = true;
-        refreshBtn.disabled = true;
-        refreshIcon.classList.add('animate-spin');
-        refreshBtn.title = 'Refreshing...';
-        
-        const response = await fetch('/api/system');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        updateSystemDisplay(data);
-        
-        // Update last updated timestamp
-        const now = new Date();
-        lastUpdated.textContent = `Updated ${now.toLocaleTimeString()}`;
-        
-      } catch (error) {
-        console.error('Failed to refresh system data:', error);
-        // Show error state briefly
-        refreshIcon.textContent = 'error';
-        setTimeout(() => {
-          refreshIcon.textContent = 'refresh';
-        }, 2000);
-      } finally {
-        // Reset refreshing state
-        isRefreshing = false;
-        refreshBtn.disabled = false;
-        refreshIcon.classList.remove('animate-spin');
-        refreshBtn.title = 'Refresh data (Ctrl+R)';
-      }
-    }
+            // Initialize applications array
+            function initializeApps() {
+              allApps = Array.from(document.querySelectorAll('.app-card')).map(card => ({
+                element: card,
+                name: card.dataset.name,
+                index: parseInt(card.dataset.index)
+              }));
+            }
 
-    // Applications refresh
-    async function refreshApplications() {
-      if (isRefreshingApps) return; // Prevent multiple concurrent requests
-      
-      try {
-        // Set refreshing state
-        isRefreshingApps = true;
-        refreshAppsBtn.disabled = true;
-        refreshAppsIcon.classList.add('animate-spin');
-        refreshAppsBtn.title = 'Refreshing applications...';
-        
-        const response = await fetch('/api/applications/refresh', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.success) {
-          // Reload the page to get updated applications
-          window.location.reload();
-        } else {
-          throw new Error(data.error || 'Failed to refresh applications');
-        }
-        
-      } catch (error) {
-        console.error('Failed to refresh applications:', error);
-        // Show error state briefly
-        refreshAppsIcon.textContent = 'error';
-        setTimeout(() => {
-          refreshAppsIcon.textContent = 'refresh';
-        }, 2000);
-      } finally {
-        // Reset refreshing state
-        isRefreshingApps = false;
-        refreshAppsBtn.disabled = false;
-        refreshAppsIcon.classList.remove('animate-spin');
-        refreshAppsBtn.title = 'Refresh applications (Ctrl+Shift+R)';
-      }
-    }
-
-    function updateSystemDisplay(data) {
-      // Update CPU
-      if (data.cpu) {
-        document.getElementById('cpu-usage').textContent = `${data.cpu.usage}%`;
-        document.getElementById('cpu-bar').style.width = `${data.cpu.usage}%`;
-      }
-
-      // Update Memory
-      if (data.memory) {
-        document.getElementById('memory-usage').textContent = `${data.memory.percentage}%`;
-        document.getElementById('memory-info').textContent = `${data.memory.used}GB / ${data.memory.total}GB`;
-        document.getElementById('memory-bar').style.width = `${data.memory.percentage}%`;
-      }
-
-      // Update Temperature
-      if (data.temperature && data.temperature.available && document.getElementById('cpu-temp')) {
-        document.getElementById('cpu-temp').textContent = `${data.temperature.cpu}°C`;
-        document.getElementById('temp-bar').style.width = `${Math.min(data.temperature.cpu, 100)}%`;
-        
-        const tempBar = document.getElementById('temp-bar');
-        tempBar.className = `h-2 rounded-full transition-all duration-500 ${
-          data.temperature.cpu > 85 ? 'bg-error-40' : 
-          data.temperature.cpu > 70 ? 'bg-warning-50' : 'bg-success-40'
-        }`;
-      }
-
-      // Update Battery (if available)
-      if (data.battery && data.battery.available && document.getElementById('battery-level')) {
-        document.getElementById('battery-level').textContent = `${data.battery.percentage}%`;
-        document.getElementById('battery-status').textContent = 
-          (data.battery.timeRemaining ? `${data.battery.timeRemaining}` : data.battery.status);
-        document.getElementById('battery-bar').style.width = `${data.battery.percentage}%`;
-        
-        const batteryIcon = document.getElementById('battery-icon');
-        batteryIcon.textContent = data.battery.isCharging ? 'battery_charging_full' : 'battery_std';
-        
-        const batteryBar = document.getElementById('battery-bar');
-        batteryBar.className = `h-2 rounded-full transition-all duration-500 ${
-          data.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40'
-        }`;
-      }
-
-      // Update Uptime
-      if (data.uptime) {
-        document.getElementById('uptime-display').innerHTML = `
-          <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">${data.uptime.days}d</div>
-          <div class="text-xs text-neutral-50 dark:text-neutral-60">${data.uptime.hours}h ${data.uptime.minutes}m</div>
-        `;
-      }
-    }
-
-    // Refresh button
-    document.getElementById('refresh-btn').addEventListener('click', refreshSystemData);
-
-    // Refresh applications button
-    document.getElementById('refresh-apps-btn').addEventListener('click', refreshApplications);
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-      // Only handle shortcuts if not in an input field
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          if (searchMode) {
-            searchInput.blur();
-            toggleSearchMode();
-          }
-        }
-        return;
-      }
-
-      // CTRL key combinations
-      if (e.ctrlKey) {
-        switch(e.key.toLowerCase()) {
-          case 't':
-            e.preventDefault();
-            toggleTheme();
-            break;
-          case 'r':
-            e.preventDefault();
-            if (e.shiftKey) {
-              // Ctrl+Shift+R for refreshing applications
-              if (!isRefreshingApps) {
-                refreshApplications();
+            function toggleSearchMode() {
+              searchMode = !searchMode;
+              if (searchMode) {
+                searchContainer.classList.remove('hidden');
+                searchStatus.classList.remove('hidden');
+                searchInput.focus();
+              } else {
+                searchContainer.classList.add('hidden');
+                searchStatus.classList.add('hidden');
+                clearFilter();
               }
-            } else {
-              // Ctrl+R for refreshing system data
-              if (!isRefreshing) {
+            }
+
+            function filterApplications(query) {
+              currentFilter = query.toLowerCase();
+              let visibleCount = 0;
+
+              allApps.forEach(app => {
+                const matches = currentFilter === '' || app.name.startsWith(currentFilter);
+                app.element.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
+              });
+
+              // Update UI
+              const hasResults = visibleCount > 0;
+              noResults.classList.toggle('hidden', hasResults);
+              applicationsGrid.classList.toggle('hidden', !hasResults);
+
+              if (currentFilter) {
+                filterCount.textContent = `${visibleCount} of ${allApps.length} apps shown`;
+              } else {
+                filterCount.textContent = '';
+              }
+            }
+
+            function clearFilter() {
+              currentFilter = '';
+              searchInput.value = '';
+              filterApplications('');
+            }
+
+            function startQuickFilter(letter) {
+              if (!searchMode) {
+                searchMode = true;
+                searchContainer.classList.remove('hidden');
+                searchStatus.classList.remove('hidden');
+              }
+              searchInput.value = letter;
+              filterApplications(letter);
+              searchInput.focus();
+            }
+
+            // Event listeners for search
+            searchToggle.addEventListener('click', toggleSearchMode);
+            searchInput.addEventListener('input', (e) => filterApplications(e.target.value));
+            searchClear.addEventListener('click', clearFilter);
+
+            // Application functions
+            function openApplication(url) {
+              window.open(url, '_blank');
+            }
+
+            // System data refresh
+            async function refreshSystemData() {
+              if (isRefreshing) return; // Prevent multiple concurrent requests
+
+              try {
+                // Set refreshing state
+                isRefreshing = true;
+                refreshBtn.disabled = true;
+                refreshIcon.classList.add('animate-spin');
+                refreshBtn.title = 'Refreshing...';
+
+                const response = await fetch('/api/system');
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                updateSystemDisplay(data);
+
+                // Update last updated timestamp
+                const now = new Date();
+                lastUpdated.textContent = `Updated ${now.toLocaleTimeString()}`;
+
+              } catch (error) {
+                console.error('Failed to refresh system data:', error);
+                // Show error state briefly
+                refreshIcon.textContent = 'error';
+                setTimeout(() => {
+                  refreshIcon.textContent = 'refresh';
+                }, 2000);
+              } finally {
+                // Reset refreshing state
+                isRefreshing = false;
+                refreshBtn.disabled = false;
+                refreshIcon.classList.remove('animate-spin');
+                refreshBtn.title = 'Refresh data (Ctrl+R)';
+              }
+            }
+
+            // Applications refresh
+            async function refreshApplications() {
+              if (isRefreshingApps) return; // Prevent multiple concurrent requests
+
+              try {
+                // Set refreshing state
+                isRefreshingApps = true;
+                refreshAppsBtn.disabled = true;
+                refreshAppsIcon.classList.add('animate-spin');
+                refreshAppsBtn.title = 'Refreshing applications...';
+
+                const response = await fetch('/api/applications/refresh', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                });
+
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                  // Reload the page to get updated applications
+                  window.location.reload();
+                } else {
+                  throw new Error(data.error || 'Failed to refresh applications');
+                }
+
+              } catch (error) {
+                console.error('Failed to refresh applications:', error);
+                // Show error state briefly
+                refreshAppsIcon.textContent = 'error';
+                setTimeout(() => {
+                  refreshAppsIcon.textContent = 'refresh';
+                }, 2000);
+              } finally {
+                // Reset refreshing state
+                isRefreshingApps = false;
+                refreshAppsBtn.disabled = false;
+                refreshAppsIcon.classList.remove('animate-spin');
+                refreshAppsBtn.title = 'Refresh applications (Ctrl+Shift+R)';
+              }
+            }
+
+            function updateSystemDisplay(data) {
+              // Update CPU
+              if (data.cpu) {
+                document.getElementById('cpu-usage').textContent = `${data.cpu.usage}%`;
+                document.getElementById('cpu-bar').style.width = `${data.cpu.usage}%`;
+              }
+
+              // Update Memory
+              if (data.memory) {
+                document.getElementById('memory-usage').textContent = `${data.memory.percentage}%`;
+                document.getElementById('memory-info').textContent = `${data.memory.used}GB / ${data.memory.total}GB`;
+                document.getElementById('memory-bar').style.width = `${data.memory.percentage}%`;
+              }
+
+              // Update Temperature
+              if (data.temperature && data.temperature.available && document.getElementById('cpu-temp')) {
+                document.getElementById('cpu-temp').textContent = `${data.temperature.cpu}°C`;
+                document.getElementById('temp-bar').style.width = `${Math.min(data.temperature.cpu, 100)}%`;
+
+                const tempBar = document.getElementById('temp-bar');
+                tempBar.className = `h-2 rounded-full transition-all duration-500 ${
+                  data.temperature.cpu > 85 ? 'bg-error-40' :
+                  data.temperature.cpu > 70 ? 'bg-warning-50' : 'bg-success-40'
+                }`;
+              }
+
+              // Update Battery (if available)
+              if (data.battery && data.battery.available && document.getElementById('battery-level')) {
+                document.getElementById('battery-level').textContent = `${data.battery.percentage}%`;
+                document.getElementById('battery-status').textContent =
+                  (data.battery.timeRemaining ? `${data.battery.timeRemaining}` : data.battery.status);
+                document.getElementById('battery-bar').style.width = `${data.battery.percentage}%`;
+
+                const batteryIcon = document.getElementById('battery-icon');
+                batteryIcon.textContent = data.battery.isCharging ? 'battery_charging_full' : 'battery_std';
+
+                const batteryBar = document.getElementById('battery-bar');
+                batteryBar.className = `h-2 rounded-full transition-all duration-500 ${
+                  data.battery.percentage > 20 ? 'bg-warning-50' : 'bg-error-40'
+                }`;
+              }
+
+              // Update Power Consumption
+              if (data.power && data.power.available && document.getElementById('power-watts')) {
+                document.getElementById('power-watts').textContent = `${data.power.watts}W`;
+                document.getElementById('power-monthly').textContent = `~${data.power.monthlyKwh} units`;
+                document.getElementById('power-bar').style.width = `${Math.min((data.power.watts / 100) * 100, 100)}%`;
+
+                const powerBar = document.getElementById('power-bar');
+                powerBar.className = `h-2 rounded-full transition-all duration-500 ${
+                  data.power.watts > 50 ? 'bg-warning-50' : 'bg-tertiary-40'
+                }`;
+              }
+
+              // Update Uptime
+              if (data.uptime) {
+                document.getElementById('uptime-display').innerHTML = `
+                  <div class="text-2xl font-medium text-neutral-10 dark:text-neutral-90">${data.uptime.days}d</div>
+                  <div class="text-xs text-neutral-50 dark:text-neutral-60">${data.uptime.hours}h ${data.uptime.minutes}m</div>
+                `;
+              }
+            }
+
+            // Refresh button
+            document.getElementById('refresh-btn').addEventListener('click', refreshSystemData);
+
+            // Refresh applications button
+            document.getElementById('refresh-apps-btn').addEventListener('click', refreshApplications);
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+              // Only handle shortcuts if not in an input field
+              if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                if (e.key === 'Escape') {
+                  e.preventDefault();
+                  if (searchMode) {
+                    searchInput.blur();
+                    toggleSearchMode();
+                  }
+                }
+                return;
+              }
+
+              // CTRL key combinations
+              if (e.ctrlKey) {
+                switch(e.key.toLowerCase()) {
+                  case 't':
+                    e.preventDefault();
+                    toggleTheme();
+                    break;
+                  case 'r':
+                    e.preventDefault();
+                    if (e.shiftKey) {
+                      // Ctrl+Shift+R for refreshing applications
+                      if (!isRefreshingApps) {
+                        refreshApplications();
+                      }
+                    } else {
+                      // Ctrl+R for refreshing system data
+                      if (!isRefreshing) {
+                        refreshSystemData();
+                      }
+                    }
+                    break;
+                  case 'l':
+                    e.preventDefault();
+                    window.location.href = '/logout';
+                    break;
+                  case 'f':
+                    e.preventDefault();
+                    toggleSearchMode();
+                    break;
+                  case '1':
+                  case '2':
+                  case '3':
+                  case '4':
+                  case '5':
+                  case '6':
+                  case '7':
+                  case '8':
+                  case '9':
+                    e.preventDefault();
+                    const appIndex = parseInt(e.key) - 1;
+                    const appCard = document.querySelector(`[data-index="${appIndex}"]`);
+                    if (appCard && !appCard.classList.contains('hidden')) {
+                      appCard.click();
+                    }
+                    break;
+                }
+              } else {
+                // Regular letter keys for quick filtering
+                if (e.key.match(/^[a-zA-Z]$/)) {
+                  e.preventDefault();
+                  startQuickFilter(e.key.toLowerCase());
+                } else if (e.key === 'Escape') {
+                  e.preventDefault();
+                  if (searchMode) {
+                    toggleSearchMode();
+                  }
+                }
+              }
+            });
+
+            // Page visibility handling
+            document.addEventListener('visibilitychange', function() {
+              if (document.hidden) {
+                stopAutoRefresh();
+              } else {
+                startAutoRefresh();
+                refreshSystemData(); // Immediate refresh when page becomes visible
+              }
+            });
+
+            // Start auto-refresh
+            function startAutoRefresh() {
+              refreshTimer = setInterval(refreshSystemData, REFRESH_INTERVAL);
+            }
+
+            function stopAutoRefresh() {
+              if (refreshTimer) {
+                clearInterval(refreshTimer);
+              }
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', function() {
+              initializeApps();
+              startAutoRefresh();
+
+              // Enable refresh button after page loads
+              refreshBtn.disabled = false;
+
+              // Initial refresh after a short delay to show the loading state
+              setTimeout(() => {
                 refreshSystemData();
-              }
-            }
-            break;
-          case 'l':
-            e.preventDefault();
-            window.location.href = '/logout';
-            break;
-          case 'f':
-            e.preventDefault();
-            toggleSearchMode();
-            break;
-          case '1':
-          case '2':
-          case '3':
-          case '4':
-          case '5':
-          case '6':
-          case '7':
-          case '8':
-          case '9':
-            e.preventDefault();
-            const appIndex = parseInt(e.key) - 1;
-            const appCard = document.querySelector(`[data-index="${appIndex}"]`);
-            if (appCard && !appCard.classList.contains('hidden')) {
-              appCard.click();
-            }
-            break;
-        }
-      } else {
-        // Regular letter keys for quick filtering
-        if (e.key.match(/^[a-zA-Z]$/)) {
-          e.preventDefault();
-          startQuickFilter(e.key.toLowerCase());
-        } else if (e.key === 'Escape') {
-          e.preventDefault();
-          if (searchMode) {
-            toggleSearchMode();
-          }
-        }
-      }
-    });
+              }, 500);
+            });
 
-    // Page visibility handling
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        stopAutoRefresh();
-      } else {
-        startAutoRefresh();
-        refreshSystemData(); // Immediate refresh when page becomes visible
-      }
-    });
-
-    // Start auto-refresh
-    function startAutoRefresh() {
-      refreshTimer = setInterval(refreshSystemData, REFRESH_INTERVAL);
-    }
-
-    function stopAutoRefresh() {
-      if (refreshTimer) {
-        clearInterval(refreshTimer);
-      }
-    }
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeApps();
-      startAutoRefresh();
-      
-      // Enable refresh button after page loads
-      refreshBtn.disabled = false;
-      
-      // Initial refresh after a short delay to show the loading state
-      setTimeout(() => {
-        refreshSystemData();
-      }, 500);
-    });
-
-    console.log('🚀 Octagon Launcher Dashboard loaded with enhanced search and CTRL shortcuts');
-  </script>
-</body>
+            console.log('🚀 Octagon Launcher Dashboard loaded with enhanced search and CTRL shortcuts');
+    </script>
+  </body>
 </html>
